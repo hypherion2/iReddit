@@ -17,7 +17,7 @@
 - (void)composeController:(CreateMessage *)controller didSendFields:(NSArray*)fields;
 @end
 
-@interface CreateMessage : UIViewController <NSURLConnectionDataDelegate, GIDAAlertViewDelegate>
+@interface CreateMessage : UIViewController  <GIDAAlertViewDelegate>
 -(void)newCaptcha;
 @property (strong, nonatomic) id<CreateMessageDelegate> delegate;
 @property (strong, nonatomic) NSString *subject;

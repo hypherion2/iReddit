@@ -17,8 +17,6 @@
 @property (nonatomic, strong) MessageDataSource *dataSource;
 @property (nonatomic, strong) UINavigationBar *navigationBar;
 @property (nonatomic, strong) UITableView *tableView;
-@property (strong) NSMutableData* responseData;
-@property (strong, nonatomic) NSURLConnection *connection;
 @property (strong, nonatomic) CreateMessage *controller;
 @end
 
@@ -129,44 +127,34 @@
                            [[captchaID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
                            [[captchaText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]
                            ] dataUsingEncoding:NSASCIIStringEncoding]];
-    NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
-    [connection start];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               if (error) {
+                                   [[[UIAlertView alloc] initWithTitle:@"Error Sending Message"
+                                                               message:@"Could not send your message at this time. Please try again later."
+                                                              delegate:nil
+                                                     cancelButtonTitle:@"OK"
+                                                     otherButtonTitles:nil] show];
+                               } else {
+                                   NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                   
+                                   if([responseBody rangeOfString:@"error"].location != NSNotFound)
+                                   {
+                                       [[[UIAlertView alloc] initWithTitle:@"Error Sending Message"
+                                                                   message:@"Could not send your message at this time. Please try again later."
+                                                                  delegate:nil
+                                                         cancelButtonTitle:@"OK"
+                                                         otherButtonTitles:nil] show];
+                                       [_controller newCaptcha];
+                                   } else {
+                                       [_controller dismissViewControllerAnimated:YES completion:nil];
+                                   }
+                               }
+                           }];
+}
 
-    
-}
--(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    _responseData = [NSMutableData data];
-}
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [_responseData appendData:data];
-}
--(void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    NSString *responseBody = [[NSString alloc] initWithData:_responseData encoding:NSUTF8StringEncoding];
-    
-    if([responseBody rangeOfString:@"error"].location != NSNotFound)
-    {
-        [[[UIAlertView alloc] initWithTitle:@"Error Sending Message"
-                                     message:@"Could not send your message at this time. Please try again later."
-                                    delegate:nil
-						   cancelButtonTitle:@"OK"
-						   otherButtonTitles:nil] show];
-        [_controller newCaptcha];
-    } else {
-        [_controller dismissViewControllerAnimated:YES completion:nil];
-    }
-    
-    
-    _connection = nil;
-}
--(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    _connection = nil;
-    
-    [[[UIAlertView alloc] initWithTitle:@"Error Sending Message" 
-                           message:@"Could not send your message at this time. Please try again later." 
-                           delegate:nil 
-						   cancelButtonTitle:@"OK" 
-						   otherButtonTitles:nil] show];
-}
 
 // for the message composer!
 - (void)dealloc

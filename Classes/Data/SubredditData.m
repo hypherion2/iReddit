@@ -10,10 +10,11 @@
 
 @interface SubredditData ()
 @property (nonatomic, strong) NSMutableSet *addresses;
+@property (nonatomic, strong) NSMutableArray *stories;
 @end
 
 @implementation SubredditData
-@synthesize subreddit = _subreddit, stories = _stories;
+@synthesize subreddit = _subreddit;
 @synthesize newsModeIndex;
 
 - (id)initWithSubreddit:(NSString *)subreddit
@@ -47,23 +48,22 @@
 - (void)loadMore:(BOOL)more
 {
     NSString *loadURL = [self fullURL];
-    if(more) 
-    {
+    
+    if(more) {
         id object = [self.stories lastObject];
 
         Story *story = (Story *)object;
         NSString *lastItemID = story.name;
 
         loadURL = [NSString stringWithFormat:@"%@%@%@", [self fullURL], MoreItemsFormattedString, lastItemID];
-    } 
-    else
-    {
+    } else {
         // clear the stories for this subreddit
         [self.stories removeAllObjects];
+        self.stories = [NSMutableArray array];
     }
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:loadURL]];
-    [request setCachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
+   // [request setCachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPMethod:@"GET"];
     NSURLResponse *response = nil;
@@ -84,16 +84,14 @@
 	}
     NSDictionary *resultSet = [json objectForKey:@"data"];
     NSArray *results = [resultSet objectForKey:@"children"];
-    
-    for (NSDictionary *result in results) 
-	{
-        
+   
+    for (NSDictionary *result in results) {
 		NSDictionary *data = [result objectForKey:@"data"];
 		
 		Story *theStory = [Story storyWithDictionary:data inReddit:self];
 		theStory.index = [_stories count];
         
-        if (![_addresses containsObject:theStory.name]) {
+        if (![_stories containsObject:theStory] || ![_addresses containsObject:theStory.name]) {
             [_addresses addObject:theStory.name];
             [_stories addObject:theStory];
         }
@@ -132,7 +130,9 @@
 
 - (void)invalidate:(BOOL)erase 
 {
-	[self.stories removeAllObjects];
+    if (erase) {
+        [self.stories removeAllObjects];
+    }
 }
 
 - (void)dealloc

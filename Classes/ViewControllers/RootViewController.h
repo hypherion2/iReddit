@@ -15,7 +15,7 @@
 #import "MessageViewController.h"
 #import "AddRedditViewController.h"
 
-@interface RootViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, NSURLConnectionDataDelegate>
+@interface RootViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
 - (NSArray *)topItems;
 - (NSArray *)subreddits;

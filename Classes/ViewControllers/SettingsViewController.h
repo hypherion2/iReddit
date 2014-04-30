@@ -8,10 +8,5 @@
 
 #import <Foundation/Foundation.h>
 
-
-@interface SettingsViewController : UITableViewController <UITableViewDataSource,
-    UITextFieldDelegate>
-{
-   
-}
+@interface SettingsViewController : UITableViewController <UITableViewDataSource, UITextFieldDelegate>
 @end

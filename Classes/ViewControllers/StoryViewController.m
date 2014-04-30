@@ -21,7 +21,7 @@
 @interface StoryViewController () {
     BOOL		isForComments;
 }
-
+@property (strong,nonatomic) NSNumber *count;
 @property (strong) UIWebView		  *webview;
 @property (weak)   UIButton			  *scoreItem;
 @property (weak)   UIButton			  *commentCountItem;
@@ -38,15 +38,18 @@
 
 - (id)init {
     self = [super init];
-    if (self)
+    if (self){
         isForComments = NO;
+        _count = [NSNumber numberWithInteger:0];
+    }
     return self;
 }
 - (id)initForComments
 {
-	if (self = [super init])
-	{
+	self = [super init];
+    if (self) {
 		isForComments = YES;
+        _count = [NSNumber numberWithInteger:0];
 	}
 	
 	return self;
@@ -87,29 +90,28 @@
 	
 	[items addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
     
-	if (!isForComments)
-	{
-        NSLog(@"Not for comments");
+	if (!isForComments) {
+        //NSLog(@"Not for comments");
 		self.commentCountItem = [UIButton buttonWithType:UIButtonTypeCustom];
 		_commentCountItem.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
 		_commentCountItem.showsTouchWhenHighlighted = NO;
 		_commentCountItem.adjustsImageWhenHighlighted = NO;
         if (iosVer >= 7.0) {
+          //  [_commentCountItem setFrame:CGRectMake(0, 0, 30, 20)];
             [_commentCountItem setTitleColor:[iRedditAppDelegate redditNavigationBarTintColor] forState:UIControlStateNormal];
            // [_commentCountItem setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
         } else {
             [_commentCountItem setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [_commentCountItem setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
         }
-        
+        [_commentCountItem setTitle:[_count stringValue] forState:UIControlStateNormal];
+        [_commentCountItem sizeToFit];
 		_commentCountItem.titleLabel.shadowOffset = CGSizeMake(0.0, -1.0);
 		
 		[items addObject:[[UIBarButtonItem alloc] initWithCustomView:_commentCountItem]];
 		
 		[items addObject:[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"commentBubble.png"] style:UIBarButtonItemStylePlain target:self action:@selector(showComments:)]];
-	}
-	else
-	{
+	} else {
 		[items addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(showStory:)]];
 	}
 	
@@ -190,7 +192,11 @@
 	
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:showLoadingAlienKey])
 	{
-		_loadingView = [[AlienProgressView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame) - 111.0, CGRectGetHeight(self.view.frame) - 150.0, 101.0, 140.0)];
+        if (iosVer >= 7.0) {
+            _loadingView = [[AlienProgressView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame) - 111.0, CGRectGetHeight(self.view.frame) - 185.0, 101.0, 140.0)];
+        } else {
+            _loadingView = [[AlienProgressView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame) - 111.0, CGRectGetHeight(self.view.frame) - 150.0, 101.0, 140.0)];
+        }
 		_loadingView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin;
 		[_loadingView setHidden:YES];
 		
@@ -223,13 +229,13 @@
 	
 	[_webview stopLoading];
 	
-    NSLog(@"CommentCountItem: %@",_commentCountItem);
+    //NSLog(@"CommentCountItem: %@",_commentCountItem);
 	if (_commentCountItem) {
 		[self loadStory];
-        NSLog(@"Load Story");
+      //  NSLog(@"Load Story");
 	} else {
 		[self loadStoryComments];
-        NSLog(@"Load Comments");
+        //NSLog(@"Load Comments");
     }
     
 	[_loadingView setHidden:NO];
@@ -271,7 +277,7 @@
 
 - (void)loadStory
 {
-    NSLog(@"LOAD: %@",story.URL);
+    //NSLog(@"LOAD: %@",story.URL);
 	[_webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:story.URL]]];
 }
 
@@ -284,7 +290,7 @@
 	   ]
 	  ]
 	 ];
-    NSLog(@"%@",[NSString stringWithFormat:@"%@/comments/%@/%@", RedditBaseURLString, story.identifier, story.commentID]);
+    //NSLog(@"%@",[NSString stringWithFormat:@"%@/comments/%@/%@", RedditBaseURLString, story.identifier, story.commentID]);
 }
 
 - (void)setScore:(int)score
@@ -307,9 +313,8 @@
     }
 }
 
-- (void)setNumberOfComments:(unsigned)commentCount {
-    [_commentCountItem setTitle:[NSString stringWithFormat:@"%u", commentCount] forState:UIControlStateNormal];
-	[_commentCountItem sizeToFit];
+- (void)setNumberOfComments:(NSUInteger)commentCount {
+    _count = [NSNumber numberWithInteger:commentCount];
 }
 
 - (void)voteUp:(id)sender
@@ -757,8 +762,8 @@ static NSString * encodeByAddingPercentEscapes(NSString *input) {
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    if(((RedditWebView *)webView).currentNavigationType != UIWebViewNavigationTypeOther)
-    {
+ //   if(((RedditWebView *)webView).currentNavigationType != UIWebViewNavigationTypeOther) {
+    if (_loadingView) {
         [_loadingView setHidden:NO];
         [_loadingView startAnimating];
     }
@@ -829,7 +834,6 @@ static NSString * encodeByAddingPercentEscapes(NSString *input) {
 }
 -(void)backButtonDidPressed:(id)sender {
     //[super viewDidUnload];
-    NSLog(@"VIEWDIDUNLOAD");
 }
 
 -(BOOL)shouldAutorotate {

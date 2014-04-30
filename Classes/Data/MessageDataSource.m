@@ -14,7 +14,6 @@
 
 @interface MessageDataSource ()
 @property (nonatomic, strong) NSMutableArray *items;
-@property (nonatomic, strong) NSMutableData  *receivedData;
 @end
 
 @implementation MessageDataSource
@@ -26,7 +25,7 @@
 		canLoadMore = YES;
         _items = [NSMutableArray array];
 	}
-
+    
 	return self;
 }
 -(NSInteger)count {
@@ -36,8 +35,8 @@
     return [_items objectAtIndex:index];
 }
 - (void)dealloc
-{	
-	[self cancel];	
+{
+	[self cancel];
 }
 
 - (BOOL)canLoadMore
@@ -65,14 +64,14 @@
     return lastLoadedTime != nil;
 }
 
-- (void)invalidate:(BOOL)erase 
+- (void)invalidate:(BOOL)erase
 {
 	[self.items removeAllObjects];
 }
 
 - (void)cancel
 {
-
+    
 }
 
 - (void)didStartLoad
@@ -109,9 +108,9 @@
 	return [self.items count];
 }
 
-- (void)loadMore:(BOOL)more {	
+- (void)loadMore:(BOOL)more {
 	NSString *loadURL = [NSString stringWithFormat:@"%@%@", RedditBaseURLString, RedditMessagesAPIString];
-
+    
 	if (more) {
 		id object = [self.items lastObject];
 		
@@ -120,57 +119,55 @@
 	} else {
 		// remove any previous items
 		[self.items removeAllObjects];
-		unreadMessageCount = 0;		
+		unreadMessageCount = 0;
 	}
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:loadURL]];
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
-    [request setHTTPShouldHandleCookies:[[LoginController sharedLoginController] isLoggedIn] ? YES : NO];
+    [request setHTTPShouldHandleCookies:YES];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPMethod:@"GET"];
-    NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
-    [connection start];
-}
-
-#pragma mark url request delegate
--(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    isLoading = YES;
-    _receivedData = [NSMutableData data];
-}
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [_receivedData appendData:data];
-}
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	canLoadMore = NO;
-
-	int totalCount = [self.items count];
-
-	NSDictionary *json = [NSJSONSerialization JSONObjectWithData:_receivedData options:NSJSONReadingMutableContainers error:nil];
-    
-	if (![json isKindOfClass:[NSDictionary class]])
-	{
-	    [self didFinishLoad];
-		return;
-	}
-
-    NSArray *results = [[json objectForKey:@"data"] objectForKey:@"children"];	
-	
-	unreadMessageCount = 0;
-    for (NSDictionary *result in results) 
-	{     
-		RedditMessage *newMessage = [RedditMessage messageWithDictionary:[result objectForKey:@"data"]];
-		if (newMessage) 
-		{
-			[self.items	addObject:newMessage];
-			
-			if (newMessage.isNew)
-				unreadMessageCount++;
-		}
-	}
-    
-	canLoadMore = [self.items count] > totalCount;
-	    
-    [self didFinishLoad];
-    
-	[[NSNotificationCenter defaultCenter] postNotificationName:MessageCountDidChangeNotification object:nil];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if (error) {
+            NSLog(@"ERROR GETTING MESSAGES: %@",error.description);
+        } else {
+            canLoadMore = NO;
+            
+            int totalCount = [self.items count];
+            NSError *error = nil;
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+            
+            if (error) {
+                NSLog(@"%@",error.description);
+                NSString *stringData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                NSLog(@"%@",stringData);
+            }
+            if (![json isKindOfClass:[NSDictionary class]])
+            {
+                [self didFinishLoad];
+                return;
+            }
+            
+            NSArray *results = [[json objectForKey:@"data"] objectForKey:@"children"];
+            
+            unreadMessageCount = 0;
+            for (NSDictionary *result in results)
+            {
+                RedditMessage *newMessage = [RedditMessage messageWithDictionary:[result objectForKey:@"data"]];
+                if (newMessage)
+                {
+                    [self.items	addObject:newMessage];
+                    
+                    if (newMessage.isNew)
+                        unreadMessageCount++;
+                }
+            }
+            
+            canLoadMore = [self.items count] > totalCount;
+            
+            [self didFinishLoad];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:MessageCountDidChangeNotification object:nil];
+        }
+    }];
 }
 @end

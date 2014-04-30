@@ -10,11 +10,7 @@
 #import "Constants.h"
 
 LoginController *SharedLoginController = nil;
-@interface LoginController (){
-    NSMutableData *receivedData;
-}
 
-@end
 @implementation LoginController
 
 @synthesize modhash, lastLoginTime;
@@ -69,8 +65,7 @@ LoginController *SharedLoginController = nil;
     return lastLoginTime != nil;
 }
 
-- (BOOL)isLoggingIn
-{
+- (BOOL)isLoggingIn {
     return isLoggingIn;
 }
 
@@ -100,54 +95,62 @@ LoginController *SharedLoginController = nil;
                            [aPassword stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
                            [aUsername stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]]
                           dataUsingEncoding:NSASCIIStringEncoding]];
-    NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
-    [connection start];
-}
-
-#pragma mark NSURLConnectionDataDelegate
-
--(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    [[NSNotificationCenter defaultCenter] postNotificationName:RedditDidBeginLoggingInNotification object:nil];
-    receivedData = [[NSMutableData alloc] init];
-}
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [receivedData appendData:data];
-}
--(void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    // parse the JSON data that we retrieved from the server
-    NSError *error = nil;
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:receivedData options:NSJSONReadingMutableContainers error:&error];
-    NSDictionary *responseJSON = [(NSDictionary *)json valueForKey:@"json"];
-    BOOL loggedIn = !error && [responseJSON objectForKey:@"data"];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (loggedIn) {
-        self.modhash = (NSString *)[(NSDictionary *)[responseJSON objectForKey:@"data"] objectForKey:@"modhash"];
-        self.lastLoginTime = [NSDate date];
-        [defaults setBool:YES forKey:hasModHash];
-        [defaults setObject:self.lastLoginTime forKey:@"lastLoginTime"];
-    } else {
-        self.modhash = @"";
-        self.lastLoginTime = nil;
-        NSLog(@"%@",responseJSON[@"errors"]);
-        [defaults setObject:@"" forKey:redditUsernameKey];
-        [defaults setObject:@"" forKey:redditPasswordKey];
-        [defaults setBool:NO forKey:hasModHash];
-        [defaults setObject:@"" forKey:@"lastLoginTime"];
-        self.modhash = @"";
-        self.lastLoginTime = nil;
-    }
-    [defaults setObject:self.modhash forKey:redditModHash];
-    [defaults synchronize];
     
-    isLoggingIn = NO;
-    [[NSNotificationCenter defaultCenter] postNotificationName:RedditDidFinishLoggingInNotification object:nil];
-}
--(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    isLoggingIn = NO;
-    self.lastLoginTime = nil;
-    [[NSNotificationCenter defaultCenter] postNotificationName:RedditDidFinishLoggingInNotification object:nil];
+  /*  [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://ssl.reddit.com/api/v1/authorize?client_id=wzfZMXgXtgjfMg&response_type=TYPE&state=holacomoestas&redirect_uri=http://com.paredesalva.ireddit&duration=permament&scope=identity,privatemesssages,mysubreddit,report,save,submit,subscribe,vote"]] queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"%@",string);
+    }];
+    NSString *loadURL = @"https://ssl.reddit.com/api/v1/access_token";
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:loadURL]];
+    [request setHTTPMethod:@"POST"];
+    NSString *authStr = [NSString stringWithFormat:@"%@:%@", @"wzfZMXgXtgjfMg", @"sHMzzKyGB1-Ns9ZECLmWRpcSQPY"];
+    NSData *authData = [authStr dataUsingEncoding:NSASCIIStringEncoding];
+    NSString *authValue = [NSString stringWithFormat:@"Basic %@", [authData base64EncodedStringWithOptions:NSDataBase64Encoding76CharacterLineLength]];
+    [request setValue:authValue forHTTPHeaderField:@"Authorization"];
+    NSString *postData = [NSString stringWithFormat:@"{granttype:password, username:aparedes, password: chivas}"];
+    [request setHTTPBody:[postData dataUsingEncoding:NSUTF8StringEncoding]];
+   */
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               if (error) {
+                                   NSLog(@"Error login in: %@",[error description]);
+                                   isLoggingIn = NO;
+                                   self.lastLoginTime = nil;
+                                   [[NSNotificationCenter defaultCenter] postNotificationName:RedditDidFinishLoggingInNotification object:nil];
+                               } else {
+                                   [[NSNotificationCenter defaultCenter] postNotificationName:RedditDidBeginLoggingInNotification object:nil];
+                                   NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+                                   NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                   NSLog(@"%@",string);
+                                   NSDictionary *responseJSON = [(NSDictionary *)json valueForKey:@"json"];
+                                   BOOL loggedIn = !error && [responseJSON objectForKey:@"data"];
+                                   
+                                   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                   if (loggedIn) {
+                                       self.modhash = (NSString *)[(NSDictionary *)[responseJSON objectForKey:@"data"] objectForKey:@"modhash"];
+                                       self.lastLoginTime = [NSDate date];
+                                       [defaults setBool:YES forKey:hasModHash];
+                                       [defaults setObject:self.lastLoginTime forKey:@"lastLoginTime"];
+                                   } else {
+                                       self.modhash = @"";
+                                       self.lastLoginTime = nil;
+                                       NSLog(@"%@",responseJSON[@"errors"]);
+                                       [defaults setObject:@"" forKey:redditUsernameKey];
+                                       [defaults setObject:@"" forKey:redditPasswordKey];
+                                       [defaults setBool:NO forKey:hasModHash];
+                                       [defaults setObject:@"" forKey:@"lastLoginTime"];
+                                       self.modhash = @"";
+                                       self.lastLoginTime = nil;
+                                   }
+                                   [defaults setObject:self.modhash forKey:redditModHash];
+                                   [defaults synchronize];
+                                   
+                                   isLoggingIn = NO;
+                                   [[NSNotificationCenter defaultCenter] postNotificationName:RedditDidFinishLoggingInNotification object:nil];
+                               }
+                           }];
 }
 -(void)logOut {
     if ([self isLoggedIn]){

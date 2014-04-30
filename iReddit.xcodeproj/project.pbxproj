@@ -98,6 +98,7 @@
 		BE27743916F7CF59009D445C /* PocketAPIOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BE27741D16F7CF59009D445C /* PocketAPIOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BE27743A16F7CF59009D445C /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BE27742016F7CF59009D445C /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BE27744316F7CF99009D445C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE27744216F7CF99009D445C /* Security.framework */; };
+		BE66E4C418E9BAD00055DB9E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE66E4C318E9BAD00055DB9E /* Images.xcassets */; };
 		BE7DBCDF170455FA0012B6D1 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7DBCDE170455FA0012B6D1 /* ImageIO.framework */; };
 		BE7DBCE1170456100012B6D1 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7DBCE0170456100012B6D1 /* CoreText.framework */; };
 		BE7DBCE3170456190012B6D1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7DBCE2170456190012B6D1 /* MobileCoreServices.framework */; };
@@ -106,6 +107,7 @@
 		BECC89F416F864E200CF00A4 /* GIDAAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = BECC89F316F864E200CF00A4 /* GIDAAlertView.m */; };
 		BED4D58918C61CAD00325E82 /* libDTCoreText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BED4D58018C61BCB00325E82 /* libDTCoreText.a */; };
 		BEFF433918DB43E900D1EC01 /* mainTitle-iOS7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BEFF433818DB43E900D1EC01 /* mainTitle-iOS7@2x.png */; };
+		BEFF436D18DC952D00D1EC01 /* libReactiveCocoa-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEFF436118DC94FA00D1EC01 /* libReactiveCocoa-iOS.a */; };
 		E58C100E12B49244004D2070 /* SubredditData.m in Sources */ = {isa = PBXBuildFile; fileRef = E58C100D12B49244004D2070 /* SubredditData.m */; };
 		E58C109812B4A0DD004D2070 /* RedditWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E58C109712B4A0DD004D2070 /* RedditWindow.m */; };
 /* End PBXBuildFile section */
@@ -166,6 +168,55 @@
 			proxyType = 2;
 			remoteGlobalIDString = E2262DC61638331500BFDAD7;
 			remoteInfo = "Mac Framework";
+		};
+		BEFF435E18DC94FA00D1EC01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BEFF434918DC94FA00D1EC01 /* ReactiveCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 88037F8315056328001A5B19;
+			remoteInfo = ReactiveCocoa;
+		};
+		BEFF436018DC94FA00D1EC01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BEFF434918DC94FA00D1EC01 /* ReactiveCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 88F440AB153DAC820097B4C3;
+			remoteInfo = "ReactiveCocoa-iOS";
+		};
+		BEFF436218DC94FA00D1EC01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BEFF434918DC94FA00D1EC01 /* ReactiveCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 88CDF7DC15000FCF00163A9F;
+			remoteInfo = ReactiveCocoaTests;
+		};
+		BEFF436418DC94FA00D1EC01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BEFF434918DC94FA00D1EC01 /* ReactiveCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5FAF5223174D4C2000CAC810;
+			remoteInfo = "ReactiveCocoaTests-iOS";
+		};
+		BEFF436618DC94FA00D1EC01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BEFF434918DC94FA00D1EC01 /* ReactiveCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1860F412177C91B500C7B3C9;
+			remoteInfo = "ReactiveCocoa-iOS-UIKitTestHost";
+		};
+		BEFF436818DC94FA00D1EC01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BEFF434918DC94FA00D1EC01 /* ReactiveCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1860F430177C91B500C7B3C9;
+			remoteInfo = "ReactiveCocoa-iOS-UIKitTestHostTests";
+		};
+		BEFF436A18DC94FA00D1EC01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BEFF434918DC94FA00D1EC01 /* ReactiveCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D05AD39417F2D56F0080895B;
+			remoteInfo = "ReactiveCocoa-Mac";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -288,6 +339,12 @@
 		BE27741F16F7CF59009D445C /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		BE27742016F7CF59009D445C /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
 		BE27744216F7CF99009D445C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		BE66E4BE18E9B8E40055DB9E /* Icon~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon~iphone.png"; sourceTree = "<group>"; };
+		BE66E4BF18E9B95E0055DB9E /* Icon~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon~ipad.png"; sourceTree = "<group>"; };
+		BE66E4C018E9B9920055DB9E /* Icon@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x~ipad.png"; sourceTree = "<group>"; };
+		BE66E4C118E9B9BC0055DB9E /* Icon-retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-retina.png"; sourceTree = "<group>"; };
+		BE66E4C218E9BA260055DB9E /* Icon-nonretina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-nonretina.png"; sourceTree = "<group>"; };
+		BE66E4C318E9BAD00055DB9E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = iReddit/Images.xcassets; sourceTree = "<group>"; };
 		BE7DBCDE170455FA0012B6D1 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		BE7DBCE0170456100012B6D1 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		BE7DBCE2170456190012B6D1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -298,7 +355,7 @@
 		BECC89F316F864E200CF00A4 /* GIDAAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GIDAAlertView.m; path = Externals/GIDAAlertView/GIDAAlertView.m; sourceTree = SOURCE_ROOT; };
 		BED4D56F18C61BCB00325E82 /* DTCoreText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DTCoreText.xcodeproj; path = Externals/DTCoreText/DTCoreText.xcodeproj; sourceTree = "<group>"; };
 		BEFF433818DB43E900D1EC01 /* mainTitle-iOS7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mainTitle-iOS7@2x.png"; sourceTree = "<group>"; };
-		E566C63412BEF9FC00E3E04E /* iReddit-Free-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iReddit-Free-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		BEFF434918DC94FA00D1EC01 /* ReactiveCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactiveCocoa.xcodeproj; path = Externals/ReactiveCocoa/ReactiveCocoaFramework/ReactiveCocoa.xcodeproj; sourceTree = "<group>"; };
 		E58C100C12B49244004D2070 /* SubredditData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubredditData.h; sourceTree = "<group>"; };
 		E58C100D12B49244004D2070 /* SubredditData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubredditData.m; sourceTree = "<group>"; };
 		E58C109612B4A0DD004D2070 /* RedditWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedditWindow.h; sourceTree = "<group>"; };
@@ -310,6 +367,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEFF436D18DC952D00D1EC01 /* libReactiveCocoa-iOS.a in Frameworks */,
 				BED4D58918C61CAD00325E82 /* libDTCoreText.a in Frameworks */,
 				BE7DBCE3170456190012B6D1 /* MobileCoreServices.framework in Frameworks */,
 				BE7DBCE1170456100012B6D1 /* CoreText.framework in Frameworks */,
@@ -345,6 +403,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				BEFF434918DC94FA00D1EC01 /* ReactiveCocoa.xcodeproj */,
 				BED4D56F18C61BCB00325E82 /* DTCoreText.xcodeproj */,
 				BE2773E516F7CF59009D445C /* Pocket-ObjC-SDK */,
 				BE0910EF16F7C47900EE6296 /* Default-568h@2x.png */,
@@ -370,8 +429,14 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BE66E4C318E9BAD00055DB9E /* Images.xcassets */,
 				ADFB53930FEAC4010067CEC1 /* Resources */,
 				ADEACD8D0FED97C7003CBAE3 /* Icon.png */,
+				BE66E4C218E9BA260055DB9E /* Icon-nonretina.png */,
+				BE66E4C118E9B9BC0055DB9E /* Icon-retina.png */,
+				BE66E4C018E9B9920055DB9E /* Icon@2x~ipad.png */,
+				BE66E4BF18E9B95E0055DB9E /* Icon~ipad.png */,
+				BE66E4BE18E9B8E40055DB9E /* Icon~iphone.png */,
 				61C35E0F11FF0C85001A2F85 /* Icon-72.png */,
 				61C35E1011FF0C85001A2F85 /* Icon@2x.png */,
 				ADFB556B0FEACC5C0067CEC1 /* Default.png */,
@@ -380,7 +445,6 @@
 				94C3A41912D75B8100E2BF79 /* Default-Portrait.png */,
 				ADB29F880FEB046200405C52 /* Entitlements.plist */,
 				8D1107310486CEB800E47090 /* iReddit-Info.plist */,
-				E566C63412BEF9FC00E3E04E /* iReddit-Free-Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -602,6 +666,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		BEFF434A18DC94FA00D1EC01 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BEFF435F18DC94FA00D1EC01 /* ReactiveCocoa.framework */,
+				BEFF436118DC94FA00D1EC01 /* libReactiveCocoa-iOS.a */,
+				BEFF436318DC94FA00D1EC01 /* ReactiveCocoaTests.octest */,
+				BEFF436518DC94FA00D1EC01 /* ReactiveCocoaTests-iOS.octest */,
+				BEFF436718DC94FA00D1EC01 /* ReactiveCocoa-iOS-UIKitTestHost.app */,
+				BEFF436918DC94FA00D1EC01 /* ReactiveCocoa-iOS-UIKitTestHostTests.octest */,
+				BEFF436B18DC94FA00D1EC01 /* libReactiveCocoa-Mac.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -647,6 +725,10 @@
 				{
 					ProductGroup = BED4D57018C61BCB00325E82 /* Products */;
 					ProjectRef = BED4D56F18C61BCB00325E82 /* DTCoreText.xcodeproj */;
+				},
+				{
+					ProductGroup = BEFF434A18DC94FA00D1EC01 /* Products */;
+					ProjectRef = BEFF434918DC94FA00D1EC01 /* ReactiveCocoa.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -713,6 +795,55 @@
 			remoteRef = BED4D58718C61BCB00325E82 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		BEFF435F18DC94FA00D1EC01 /* ReactiveCocoa.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ReactiveCocoa.framework;
+			remoteRef = BEFF435E18DC94FA00D1EC01 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BEFF436118DC94FA00D1EC01 /* libReactiveCocoa-iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libReactiveCocoa-iOS.a";
+			remoteRef = BEFF436018DC94FA00D1EC01 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BEFF436318DC94FA00D1EC01 /* ReactiveCocoaTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ReactiveCocoaTests.octest;
+			remoteRef = BEFF436218DC94FA00D1EC01 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BEFF436518DC94FA00D1EC01 /* ReactiveCocoaTests-iOS.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "ReactiveCocoaTests-iOS.octest";
+			remoteRef = BEFF436418DC94FA00D1EC01 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BEFF436718DC94FA00D1EC01 /* ReactiveCocoa-iOS-UIKitTestHost.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "ReactiveCocoa-iOS-UIKitTestHost.app";
+			remoteRef = BEFF436618DC94FA00D1EC01 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BEFF436918DC94FA00D1EC01 /* ReactiveCocoa-iOS-UIKitTestHostTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "ReactiveCocoa-iOS-UIKitTestHostTests.octest";
+			remoteRef = BEFF436818DC94FA00D1EC01 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BEFF436B18DC94FA00D1EC01 /* libReactiveCocoa-Mac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libReactiveCocoa-Mac.a";
+			remoteRef = BEFF436A18DC94FA00D1EC01 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -773,6 +904,7 @@
 				61DE6FA211FF399700B1F810 /* Default@2x.png in Resources */,
 				94C3A39612D74FE900E2BF79 /* MainWindow-iPad.xib in Resources */,
 				94C3A41A12D75B8100E2BF79 /* Default-Landscape.png in Resources */,
+				BE66E4C418E9BAD00055DB9E /* Images.xcassets in Resources */,
 				94C3A41B12D75B8100E2BF79 /* Default-Portrait.png in Resources */,
 				BE0910F016F7C47900EE6296 /* Default-568h@2x.png in Resources */,
 				BEC679C81705E0F300B4E82E /* CreateMessage.xib in Resources */,
@@ -822,16 +954,25 @@
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/ReactiveCocoa/ReactiveCocoaFramework";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iReddit_Prefix.pch;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/ReactiveCocoa/ReactiveCocoaFramework";
 				INFOPLIST_FILE = "iReddit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = iReddit;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -842,14 +983,23 @@
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/ReactiveCocoa/ReactiveCocoaFramework";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iReddit_Prefix.pch;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/ReactiveCocoa/ReactiveCocoaFramework";
 				INFOPLIST_FILE = "iReddit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = iReddit;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -881,15 +1031,24 @@
 		ADB29F830FEB03DC00405C52 /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/ReactiveCocoa/ReactiveCocoaFramework";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iReddit_Prefix.pch;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/ReactiveCocoa/ReactiveCocoaFramework";
 				INFOPLIST_FILE = "iReddit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = iReddit;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;

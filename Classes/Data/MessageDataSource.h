@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "RedditMessage.h"
 
-@interface MessageDataSource : NSObject <NSURLConnectionDataDelegate>
+@interface MessageDataSource : NSObject
 {	
     NSDate *lastLoadedTime;
     BOOL isLoading;

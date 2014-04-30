@@ -9,7 +9,6 @@
 #import "CreateMessage.h"
 
 @interface CreateMessage ()
-@property (nonatomic, strong) NSMutableData *receivedData;
 @property (nonatomic, strong) NSString *captchaID;
 @property (nonatomic, strong) UIImage  *captchaImage;
 @end
@@ -22,16 +21,7 @@
     if (self) {
         // Custom initialization
         _subject = nil;
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.reddit.com/api/new_captcha"]];
-        [request setHTTPBody:[@"api_type=json" dataUsingEncoding:NSUTF8StringEncoding]];
-        [request setHTTPMethod:@"POST"];
-        NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
-        if (connection) {
-            _receivedData = [NSMutableData data];
-        } else {
-            NSLog(@"Error");
-        }
-
+        [self newCaptcha];
     }
     return self;
 }
@@ -56,12 +46,17 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.reddit.com/api/new_captcha"]];
     [request setHTTPBody:[@"api_type=json" dataUsingEncoding:NSUTF8StringEncoding]];
     [request setHTTPMethod:@"POST"];
-    NSURLConnection *connection = [NSURLConnection connectionWithRequest:request delegate:self];
-    if (connection) {
-        _receivedData = [NSMutableData data];
-    } else {
-        NSLog(@"Error");
-    }
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if (error) {
+            
+        } else {
+            id dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            if ([dict isKindOfClass:[NSDictionary class]]) {
+                _captchaID = dict[@"json"][@"data"][@"iden"];
+                _captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.reddit.com/captcha/%@.png",_captchaID]]]];
+            }
+        }
+    }];
 }
 -(void)send:(id)sender {
     GIDAAlertView *gav = [[GIDAAlertView alloc] initWithImage:_captchaImage andMessage:@"" cancelButtonTitle:@"cancel" acceptButtonTitle:@"accept"];
@@ -70,19 +65,8 @@
     [gav show];
          //
 }
--(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-   // [_receivedData setLength:0];
-    
-}
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [_receivedData appendData:data];
-}
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    id dict = [NSJSONSerialization JSONObjectWithData:_receivedData options:NSJSONReadingMutableContainers error:nil];
-    if ([dict isKindOfClass:[NSDictionary class]]) {
-        _captchaID = dict[@"json"][@"data"][@"iden"];
-        _captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.reddit.com/captcha/%@.png",_captchaID]]]];
-    }
+
 }
 -(void)alertOnClicked:(GIDAAlertView *)alertView {
     if ([alertView accepted]) {

@@ -103,6 +103,7 @@
     
     return storyCell;
 }
+
 - (void)accessoryViewTapped:(id)sender {
     NSIndexPath *indexPath = ((CommentAccessoryView *)sender).indexPath;
     Story *object = [_dataSource storyWithIndex:indexPath.row];
@@ -155,8 +156,9 @@
 	aFrame.size.height -= aFrame.origin.y;
 	
     if (iosVer >= 7.0) {
-    aFrame.origin.y += 64;
+        aFrame.origin.y += 64;
         [[UINavigationBar appearance] setTintColor:[iRedditAppDelegate redditNavigationBarTintColor]];
+        aFrame.size.height -= 64;
     }
 	//UIView *wrapper = [[[UIView alloc] initWithFrame:aFrame] autorelease];
     //wrapper.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -185,6 +187,7 @@
     UILabel *label = nil;
     UIActivityIndicatorView *aic = nil;
     
+    
     _loadingView = [[UIView alloc] initWithFrame:aFrame];
     [_loadingView setBackgroundColor:[UIColor whiteColor]];
     [_loadingView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
@@ -195,6 +198,7 @@
     [label setBackgroundColor:[UIColor clearColor]];
     [label setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin];
     aic = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    
     [aic setFrame:CGRectMake((_tableView.frame.size.width-100)/2, (_tableView.frame.size.height-100)/2, 100, 100)];
     [aic setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin];
     [aic startAnimating];
@@ -203,7 +207,11 @@
     [_loadingView addSubview:label];
     [self.view addSubview:_loadingView];
     
-    self.updatingView = [[UIView alloc] initWithFrame:CGRectMake(0, aFrame.size.height+5, aFrame.size.width, 30)];
+    if (iosVer >= 7.0) {
+        self.updatingView = [[UIView alloc] initWithFrame:CGRectMake(0, aFrame.size.height+69, aFrame.size.width, 30)];
+    } else {
+        self.updatingView = [[UIView alloc] initWithFrame:CGRectMake(0, aFrame.size.height+5, aFrame.size.width, 30)];
+    }
     label = [[UILabel alloc] initWithFrame:CGRectMake((_tableView.frame.size.width-100)/2, 0, 100, 30)];
     
     if (iosVer >= 7.0) {
@@ -238,20 +246,17 @@
 
 - (void)refresh:(id)sender {
     [self.loadingView setHidden:NO];
-    [self performSelectorInBackground:@selector(newData) withObject:nil];
-}
-- (void)newData {
     if ([self.dataSource totalStories]>0) {
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
     }
     [self.dataSource invalidate:YES];
     [self.dataSource loadMore:NO];
+    
     [self.tableView reloadData];
     [self.loadingView setHidden:YES];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[self.tableView reloadData];
 }
@@ -296,10 +301,8 @@
 #pragma mark tab bar stuff
 -(void)toolBarButton:(UISegmentedControl *)sender {
     ((SubredditData *)self.dataSource).newsModeIndex = sender.selectedSegmentIndex;
-    [_loadingView setHidden:NO];
-	[self.dataSource invalidate:YES];
-    [self performSelectorInBackground:@selector(newData) withObject:nil];
-//    [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:NO];
+    [self refresh:nil];
+    //    [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:NO];
     
 }
 

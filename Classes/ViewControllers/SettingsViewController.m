@@ -11,6 +11,27 @@
 #import "LoginController.h"
 #import "Constants.h"
 #import "GIDAAlertView.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
+
+@interface TextField : UITextField
+@property (strong, nonatomic) NSIndexPath *indexPath;
+@property (strong, nonatomic) NSString    *dataKey;
+@property (strong, nonatomic) NSString    *dataValue;
+@end
+
+@implementation TextField
+
+@end
+
+@interface Switch : UISwitch
+@property (strong, nonatomic) NSIndexPath *indexPath;
+@property (strong, nonatomic) NSString    *dataKey;
+@property (strong, nonatomic) NSString    *dataValue;
+@end
+
+@implementation Switch
+
+@end
 
 @interface SettingsViewController () {
     NSInteger selectedRow;
@@ -62,15 +83,15 @@
     }
     
     [cell setAccessoryView:nil];
+    [cell setBackgroundColor:[UIColor whiteColor]];
     NSDictionary *cellData = [[_options objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     [[cell textLabel] setText:[cellData objectForKey:@"title"]];
     if ([[cellData objectForKey:@"type"] isEqualToString:@"switch"]) {
-        UISwitch *switchview = [[UISwitch alloc] initWithFrame:CGRectZero];
+        Switch *switchview = [[Switch alloc] initWithFrame:CGRectZero];
         [switchview setOn:[cellData[@"value"] boolValue]];
-        
+        [switchview setDataKey:cellData[@ "key"]];
         [cell setAccessoryView:switchview];
         [switchview addTarget:self action:@selector(valueChange:) forControlEvents:UIControlEventValueChanged];
-        
     } else {
         if ([cellData[@"type"] isEqualToString:@"check"]) {
             if ([cellData[@"value"] boolValue]) {
@@ -82,56 +103,67 @@
                 if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
                     width = 544;
                 }
-                UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, width, 24)];
+                TextField *textField = [[TextField alloc] initWithFrame:CGRectMake(0, 0, width, 24)];
                 [textField setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
                 [textField setDelegate:self];
                 [textField setText:cellData[@"value"]];
                 [textField setSpellCheckingType:UITextSpellCheckingTypeNo];
                 [textField setAutocorrectionType:UITextAutocorrectionTypeNo];
                 [textField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
-                [textField setPlaceholder:cellData[@"placeholder"]];
+                [textField setIndexPath:indexPath];
+                [textField setDataKey:cellData[@"key"]];
+                [textField setDataValue:cellData[@"value"]];
                 if ([cellData[@"secure"] boolValue]) {
                     [textField setSecureTextEntry:YES];
                 }
                 [cell setAccessoryView:textField];
+            } else {
+                UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                button.frame = CGRectMake(-10, 0, 50, 30);
+                [button setTitle:@"Login"  forState:UIControlStateNormal];
+                [button setTitle:@"Login?" forState:UIControlStateDisabled];
+                //[button setEnabled:NO];
+                [button addTarget:self action:@selector(loginButton) forControlEvents:UIControlEventTouchUpInside];
+                [cell setAccessoryView:button];
+                [cell setBackgroundColor:[UIColor clearColor]];
+
             }
         }
     }
     return cell;
 }
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[textField superview]];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    NSDictionary *data = [[_options objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    NSString *previous = [defaults stringForKey:data[@"key"]];
-    [defaults setObject:[textField text] forKey:data[@"key"]];
+    NSString *dataKey = [(TextField *)textField dataKey];
+    NSString *previous = [defaults stringForKey:dataKey];
+    [defaults setObject:[textField text] forKey:dataKey];
     [defaults synchronize];
     
-    if (redditPasswordKey == data[@"key"] || redditUsernameKey == data[@"key"]) {
-        if (![previous isEqualToString:data[@"value"]]) {
+    if (redditPasswordKey == dataKey || redditUsernameKey == dataKey) {
+        if (![previous isEqualToString:[(TextField *)textField dataValue]]) {
             changed = YES;
         }
     }
     [self createModel];
 }
 -(void)textFieldDidEndEditing:(UITextField *)textField {
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[textField superview]];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *dataKey = [(TextField *)textField dataKey];
+    NSString *previous = [defaults stringForKey:dataKey];
+    [defaults setObject:[textField text] forKey:dataKey];
+    [defaults synchronize];
     
-    NSDictionary *data = [[_options objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    [[NSUserDefaults standardUserDefaults] setObject:[textField text] forKey:data[@"key"]];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    if (redditPasswordKey == data[@"key"] || redditUsernameKey == data[@"key"]) {
-        changed = YES;
+    if (redditPasswordKey == dataKey || redditUsernameKey == dataKey) {
+        if (![previous isEqualToString:[(TextField *)textField dataValue]]) {
+            changed = YES;
+        }
     }
     [self createModel];
 }
 -(void)valueChange:(id)sender {
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[sender superview]];
-    
-    NSDictionary *data = [[_options objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    if ([data[@"key"] isEqualToString:usePocket]) {
+    Switch *switchValue = (Switch *)sender;
+    NSString *dataKey = [switchValue dataKey];
+    if ([dataKey isEqualToString:usePocket]) {
         if ([sender isOn] && ![[PocketAPI sharedAPI] isLoggedIn]) {
             [[PocketAPI sharedAPI] loginWithHandler: ^(PocketAPI *API, NSError *error){
                 if (error != nil)
@@ -147,10 +179,7 @@
                     GIDAAlertView *gav = [[GIDAAlertView alloc] initWithXMarkWith:@"Could not log in to Pocket"];
                     [gav setColor:[iRedditAppDelegate redditNavigationBarTintColor]];
                     [gav presentAlertFor:1.08];
-                    
-                }
-                else
-                {
+                } else {
                     // The user logged in successfully, your app can now make requests.
                     // [API username] will return the logged-in user’s username
                     // and API.loggedIn will == YES
@@ -165,7 +194,7 @@
         }
         if (![sender isOn] && [[PocketAPI sharedAPI] isLoggedIn]) {
             [[PocketAPI sharedAPI] logout];
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:data[@"key"]];
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:dataKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
         if ([sender isOn] && [[PocketAPI sharedAPI] isLoggedIn]) {
@@ -173,16 +202,16 @@
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
     } else {
-        if ([data[@"key"] isEqualToString:@"useChrome"]) {
+        if ([dataKey isEqualToString:@"useChrome"]) {
             if ([sender isOn] && ![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome://"]]) {
-                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:data[@"key"]];
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:dataKey];
                 [sender setOn:NO animated:YES];
             } else {
-                [[NSUserDefaults standardUserDefaults] setBool:[sender isOn] forKey:data[@"key"]];
+                [[NSUserDefaults standardUserDefaults] setBool:[sender isOn] forKey:dataKey];
             }
             [[NSUserDefaults standardUserDefaults] synchronize];
         } else {
-            [[NSUserDefaults standardUserDefaults] setBool:[sender isOn] forKey:data[@"key"]];
+            [[NSUserDefaults standardUserDefaults] setBool:[sender isOn] forKey:dataKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
     }
@@ -230,25 +259,13 @@
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome://"]]) {
         chrome =  [NSDictionary dictionaryWithObjectsAndKeys:@"Use Chrome",@"title",[NSNumber numberWithBool:[defaults boolForKey:useChrome]],@"value",useChrome, @"key", @"switch", @"type", nil];
     }
+    
     _options = [NSMutableArray arrayWithObjects:
-                [NSArray arrayWithObjects:
-                 [NSDictionary dictionaryWithObjectsAndKeys:
-                  @"Username",@"title",
-                  redditUsernameKey, @"key",
-                  @"text", @"type",
-                  [NSNumber numberWithBool:NO],@"secure",
-                  @"splashy", @"placeholder",
-                  [defaults stringForKey:redditUsernameKey],@"value",
-                  nil],
-                 [NSDictionary dictionaryWithObjectsAndKeys:
-                  @"Password",@"title",
-                  redditPasswordKey, @"key",
-                  @"text", @"type",
-                  [NSNumber numberWithBool:YES],@"secure",
-                  @"••••••", @"placeholder",
-                  [defaults stringForKey:redditPasswordKey],@"value",
-                  nil],
-                 nil],
+                @[
+                  [NSDictionary dictionaryWithObjectsAndKeys:@"Username",@"title",redditUsernameKey,@"key",@"text",@"type",[NSNumber numberWithBool:NO],@"secure",@"splashy",@"placeholder", [defaults stringForKey:redditUsernameKey],@"value",nil],
+                  [NSDictionary dictionaryWithObjectsAndKeys:@"Password",@"title",redditPasswordKey,@"key",@"text",@"type",[NSNumber numberWithBool:YES],@"secure",@"••••••",@"placeholder", [defaults stringForKey:redditPasswordKey],@"value",nil],
+                  @{@"type":@"button"}
+                 ],
                 [NSArray arrayWithObjects:
                  [NSDictionary dictionaryWithObjectsAndKeys:
                   @"Username",@"title",
@@ -272,15 +289,19 @@
                  nil],
                 nil];
 }
-- (void)viewWillDisappear:(BOOL)animated{
+- (void)loginButton {
     [[[[self tableView] cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] accessoryView] resignFirstResponder];
     [[[[self tableView] cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]] accessoryView] resignFirstResponder];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (changed) {
-        NSLog(@"login");
+        //NSLog(@"login");
         [[LoginController sharedLoginController] logOut];
         [[LoginController sharedLoginController] loginWithUsername:[defaults stringForKey:redditUsernameKey] password:[defaults stringForKey:redditPasswordKey]];
     }
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [[[[self tableView] cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] accessoryView] resignFirstResponder];
+    [[[[self tableView] cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]] accessoryView] resignFirstResponder];
 }
 
 -(BOOL)shouldAutorotate {

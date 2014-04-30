@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface LoginController : NSObject <NSURLConnectionDataDelegate>
+@interface LoginController : NSObject
 {
 	NSString *modhash;
 	NSDate *lastLoginTime;

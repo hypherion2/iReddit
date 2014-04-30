@@ -11,6 +11,6 @@
 #import "CreateMessage.h"
 #import "MessageCell.h"
 
-@interface MessageViewController : UIViewController <CreateMessageDelegate,UITableViewDataSource,UITableViewDelegate, NSURLConnectionDataDelegate>
+@interface MessageViewController : UIViewController <CreateMessageDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @end

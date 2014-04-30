@@ -73,6 +73,7 @@
 		[[self contentView] addSubview:storyTitleView];
 		[[self contentView] addSubview:storyDescriptionView];
 		[[self contentView] addSubview:secondaryDescriptionView];
+        
 		storyImage = [[UIImageView alloc] initWithFrame:CGRectZero];
         [storyImage setImage:[UIImage imageNamed:@"noimage.png"]];
 		storyImage.autoresizesSubviews = NO;

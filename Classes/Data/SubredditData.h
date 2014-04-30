@@ -13,14 +13,13 @@
 
 @interface SubredditData : NSObject {
     NSString *_subreddit;
-    NSMutableArray *_stories;
     int newsModeIndex;
     
     BOOL canLoadMore;
     NSUInteger totalStories;
 }
 @property (nonatomic, readonly) NSString *subreddit;
-@property (atomic, readonly) NSMutableArray *stories;
+@property (readonly) NSMutableArray *stories;
 
 @property (nonatomic, assign) int newsModeIndex;
 - (Story *)storyWithIndex:(int)anIndex;

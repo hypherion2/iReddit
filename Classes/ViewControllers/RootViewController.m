@@ -10,10 +10,7 @@
 
 @interface RootViewController () {
 	NSArray *customSubreddits;
-    
-    NSMutableData *receivedData;
 }
-@property (strong) NSURLConnection *connection;
 @property (strong) NSMutableArray *dataSource;
 @property (strong) NSArray *sections;
 
@@ -24,7 +21,6 @@
 {
 	if (self = [super initWithStyle:UITableViewStyleGrouped])
 	{
-        _connection = nil;
 		self.title = @"Home";
         self.navigationController.navigationBar.tintColor = [iRedditAppDelegate redditNavigationBarTintColor];
 		self.hidesBottomBarWhenPushed = YES;
@@ -49,10 +45,6 @@
 - (void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-    if (_connection) {
-        [_connection cancel];
-    }
-	
 }
 
 - (void)loadView
@@ -142,9 +134,6 @@
 
 - (void)didEndLogin:(NSNotification *)note {
 	customSubreddits = nil;
-    if (_connection) {
-        _connection = nil;
-    }
 	if ([[LoginController sharedLoginController] isLoggedIn]  && [[NSUserDefaults standardUserDefaults] boolForKey:useCustomRedditListKey])
 		self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add:)];
 	else
@@ -167,54 +156,42 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
     [request setHTTPShouldHandleCookies:[[LoginController sharedLoginController] isLoggedIn] ? YES : NO];
-    _connection = [NSURLConnection connectionWithRequest:request delegate:self];
-    [_connection start];
-    [self createModel];
-    [self.tableView reloadData];
-}
-
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    receivedData = [[NSMutableData alloc] init];
-}
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [receivedData appendData:data];
-}
--(void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    
-    id json = [NSJSONSerialization JSONObjectWithData:receivedData
-                                              options:NSJSONReadingMutableContainers
-                                                error:nil];
-    if (![json isKindOfClass:[NSDictionary class]] || ![json objectForKey:@"data"])
-	{
-        [self createModel];
-        [self.tableView reloadData];
-		return;
-	}
-    
-	NSDictionary *data = [json objectForKey:@"data"];
-	NSMutableArray *loadedReddits = [NSMutableArray array];
-	NSArray *children = [data objectForKey:@"children"];
-	
-	for (int i=0, count=[children count]; i<count; i++)
-	{
-		NSDictionary *thisReddit = [[children objectAtIndex:i] objectForKey:@"data"];
-        [loadedReddits addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                  [thisReddit objectForKey:@"title"], @"text",
-                                  [thisReddit objectForKey:@"url"], @"url",
-                                  [thisReddit objectForKey:@"name"], @"tag",
-                                  nil]];
-	}
-    
-	customSubreddits = [loadedReddits copy];
-    [self createModel];
-    [self.tableView reloadData];
-    _connection = nil;
-}
--(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    [self createModel];
-    [self.tableView reloadData];
-    _connection = nil;
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               if (error) {
+                                   [self createModel];
+                                   [self.tableView reloadData];
+                               } else {
+                                   id json = [NSJSONSerialization JSONObjectWithData:data
+                                                                             options:NSJSONReadingMutableContainers
+                                                                               error:nil];
+                                   if (![json isKindOfClass:[NSDictionary class]] || ![json objectForKey:@"data"])
+                                   {
+                                       [self createModel];
+                                       [self.tableView reloadData];
+                                       return;
+                                   }
+                                   
+                                   NSDictionary *data = [json objectForKey:@"data"];
+                                   NSMutableArray *loadedReddits = [NSMutableArray array];
+                                   NSArray *children = [data objectForKey:@"children"];
+                                   
+                                   for (int i=0, count=[children count]; i<count; i++)
+                                   {
+                                       NSDictionary *thisReddit = [[children objectAtIndex:i] objectForKey:@"data"];
+                                       [loadedReddits addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                 [thisReddit objectForKey:@"title"], @"text",
+                                                                 [thisReddit objectForKey:@"url"], @"url",
+                                                                 [thisReddit objectForKey:@"name"], @"tag",
+                                                                 nil]];
+                                   }
+                                   
+                                   customSubreddits = [loadedReddits copy];
+                                   [self createModel];
+                                   [self.tableView reloadData];
+                               }
+                           }];
 }
 
 - (void)didAddReddit:(NSNotification *)note
@@ -314,7 +291,7 @@
 		[result addObjectsFromArray:customSubreddits];
 	}
 	else{
-        if (useCustomReddits && ([[LoginController sharedLoginController] isLoggingIn] || _connection)) {
+        if (useCustomReddits && ([[LoginController sharedLoginController] isLoggingIn])) {
             [result addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"Loading custom reddits...", @"text", @"", @"url", nil]];
         } else {
             [result addObjectsFromArray:

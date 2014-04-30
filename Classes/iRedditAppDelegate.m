@@ -79,11 +79,11 @@ iRedditAppDelegate *sharedAppDelegate;
 	//login
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndLogin:) name:RedditDidFinishLoggingInNotification object:nil];
     if (![[LoginController sharedLoginController] isLoggedIn]) {
-        NSLog(@"Not Logged in, will try to login");
+        //NSLog(@"Not Logged in, will try to login");
         [[LoginController sharedLoginController] loginWithUsername:[defaults stringForKey:redditUsernameKey]
                                                           password:[defaults stringForKey:redditPasswordKey]];
     } else {
-        NSLog(@"Already logged in");
+        //NSLog(@"Already logged in");
         [[NSNotificationCenter defaultCenter] postNotificationName:RedditDidFinishLoggingInNotification object:nil];
     }
 	
@@ -138,8 +138,7 @@ iRedditAppDelegate *sharedAppDelegate;
                                                        userInfo:nil
                                                         repeats:YES];
     }
-    else
-    {
+    else {
         [messageDataSource cancel];
         messageDataSource = nil;
         
