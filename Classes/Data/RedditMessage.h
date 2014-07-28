@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DTCoreText.h"
 
 @interface RedditMessage : NSObject 
 {

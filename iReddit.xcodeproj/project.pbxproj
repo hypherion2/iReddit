@@ -105,7 +105,6 @@
 		BEC679C71705E0F300B4E82E /* CreateMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = BEC679C51705E0F300B4E82E /* CreateMessage.m */; };
 		BEC679C81705E0F300B4E82E /* CreateMessage.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEC679C61705E0F300B4E82E /* CreateMessage.xib */; };
 		BECC89F416F864E200CF00A4 /* GIDAAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = BECC89F316F864E200CF00A4 /* GIDAAlertView.m */; };
-		BED4D58918C61CAD00325E82 /* libDTCoreText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BED4D58018C61BCB00325E82 /* libDTCoreText.a */; };
 		BEFF433918DB43E900D1EC01 /* mainTitle-iOS7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BEFF433818DB43E900D1EC01 /* mainTitle-iOS7@2x.png */; };
 		BEFF436D18DC952D00D1EC01 /* libReactiveCocoa-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEFF436118DC94FA00D1EC01 /* libReactiveCocoa-iOS.a */; };
 		E58C100E12B49244004D2070 /* SubredditData.m in Sources */ = {isa = PBXBuildFile; fileRef = E58C100D12B49244004D2070 /* SubredditData.m */; };
@@ -113,62 +112,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		BE287D0918C74F2C0062A943 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BED4D56F18C61BCB00325E82 /* DTCoreText.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A7A476BC180010F100459DFD;
-			remoteInfo = "BundleLoader Dummy";
-		};
-		BED4D57B18C61BCB00325E82 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BED4D56F18C61BCB00325E82 /* DTCoreText.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1D6058910D05DD3D006BFB54;
-			remoteInfo = DemoApp;
-		};
-		BED4D57D18C61BCB00325E82 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BED4D56F18C61BCB00325E82 /* DTCoreText.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A70F119B14863198009202BF;
-			remoteInfo = "Static Framework";
-		};
-		BED4D57F18C61BCB00325E82 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BED4D56F18C61BCB00325E82 /* DTCoreText.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A70F11DE148632CD009202BF;
-			remoteInfo = "Static Library";
-		};
-		BED4D58118C61BCB00325E82 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BED4D56F18C61BCB00325E82 /* DTCoreText.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A788CA681486456100E1AFD9;
-			remoteInfo = UnitTest;
-		};
-		BED4D58318C61BCB00325E82 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BED4D56F18C61BCB00325E82 /* DTCoreText.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A7949A5814CC456000A8CCDE;
-			remoteInfo = MacUnitTest;
-		};
-		BED4D58518C61BCB00325E82 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BED4D56F18C61BCB00325E82 /* DTCoreText.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A7F7EFCD1573603100F5A4D0;
-			remoteInfo = "Static Library (no DTFoundation)";
-		};
-		BED4D58718C61BCB00325E82 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BED4D56F18C61BCB00325E82 /* DTCoreText.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E2262DC61638331500BFDAD7;
-			remoteInfo = "Mac Framework";
-		};
 		BEFF435E18DC94FA00D1EC01 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BEFF434918DC94FA00D1EC01 /* ReactiveCocoa.xcodeproj */;
@@ -353,7 +296,6 @@
 		BEC679C61705E0F300B4E82E /* CreateMessage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CreateMessage.xib; path = ViewControllers/CreateMessage.xib; sourceTree = "<group>"; };
 		BECC89F216F864E200CF00A4 /* GIDAAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GIDAAlertView.h; path = Externals/GIDAAlertView/GIDAAlertView.h; sourceTree = SOURCE_ROOT; };
 		BECC89F316F864E200CF00A4 /* GIDAAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GIDAAlertView.m; path = Externals/GIDAAlertView/GIDAAlertView.m; sourceTree = SOURCE_ROOT; };
-		BED4D56F18C61BCB00325E82 /* DTCoreText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DTCoreText.xcodeproj; path = Externals/DTCoreText/DTCoreText.xcodeproj; sourceTree = "<group>"; };
 		BEFF433818DB43E900D1EC01 /* mainTitle-iOS7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mainTitle-iOS7@2x.png"; sourceTree = "<group>"; };
 		BEFF434918DC94FA00D1EC01 /* ReactiveCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactiveCocoa.xcodeproj; path = Externals/ReactiveCocoa/ReactiveCocoaFramework/ReactiveCocoa.xcodeproj; sourceTree = "<group>"; };
 		E58C100C12B49244004D2070 /* SubredditData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubredditData.h; sourceTree = "<group>"; };
@@ -368,7 +310,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEFF436D18DC952D00D1EC01 /* libReactiveCocoa-iOS.a in Frameworks */,
-				BED4D58918C61CAD00325E82 /* libDTCoreText.a in Frameworks */,
 				BE7DBCE3170456190012B6D1 /* MobileCoreServices.framework in Frameworks */,
 				BE7DBCE1170456100012B6D1 /* CoreText.framework in Frameworks */,
 				ADFB540F0FEAC6010067CEC1 /* QuartzCore.framework in Frameworks */,
@@ -404,7 +345,6 @@
 			isa = PBXGroup;
 			children = (
 				BEFF434918DC94FA00D1EC01 /* ReactiveCocoa.xcodeproj */,
-				BED4D56F18C61BCB00325E82 /* DTCoreText.xcodeproj */,
 				BE2773E516F7CF59009D445C /* Pocket-ObjC-SDK */,
 				BE0910EF16F7C47900EE6296 /* Default-568h@2x.png */,
 				ADFB53350FEAC3EA0067CEC1 /* Classes */,
@@ -651,21 +591,6 @@
 			path = SDK;
 			sourceTree = "<group>";
 		};
-		BED4D57018C61BCB00325E82 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				BED4D57C18C61BCB00325E82 /* RTDemoApp.app */,
-				BED4D57E18C61BCB00325E82 /* DTCoreText.framework */,
-				BED4D58018C61BCB00325E82 /* libDTCoreText.a */,
-				BED4D58218C61BCB00325E82 /* UnitTest.octest */,
-				BED4D58418C61BCB00325E82 /* MacUnitTest.octest */,
-				BED4D58618C61BCB00325E82 /* libDTCoreText_no_DTFoundation.a */,
-				BED4D58818C61BCB00325E82 /* DTCoreText.framework */,
-				BE287D0A18C74F2C0062A943 /* BundleLoaderDummy.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		BEFF434A18DC94FA00D1EC01 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -723,10 +648,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = BED4D57018C61BCB00325E82 /* Products */;
-					ProjectRef = BED4D56F18C61BCB00325E82 /* DTCoreText.xcodeproj */;
-				},
-				{
 					ProductGroup = BEFF434A18DC94FA00D1EC01 /* Products */;
 					ProjectRef = BEFF434918DC94FA00D1EC01 /* ReactiveCocoa.xcodeproj */;
 				},
@@ -739,62 +660,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		BE287D0A18C74F2C0062A943 /* BundleLoaderDummy.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = BundleLoaderDummy.app;
-			remoteRef = BE287D0918C74F2C0062A943 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BED4D57C18C61BCB00325E82 /* RTDemoApp.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = RTDemoApp.app;
-			remoteRef = BED4D57B18C61BCB00325E82 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BED4D57E18C61BCB00325E82 /* DTCoreText.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = DTCoreText.framework;
-			remoteRef = BED4D57D18C61BCB00325E82 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BED4D58018C61BCB00325E82 /* libDTCoreText.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libDTCoreText.a;
-			remoteRef = BED4D57F18C61BCB00325E82 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BED4D58218C61BCB00325E82 /* UnitTest.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = UnitTest.octest;
-			remoteRef = BED4D58118C61BCB00325E82 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BED4D58418C61BCB00325E82 /* MacUnitTest.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = MacUnitTest.octest;
-			remoteRef = BED4D58318C61BCB00325E82 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BED4D58618C61BCB00325E82 /* libDTCoreText_no_DTFoundation.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libDTCoreText_no_DTFoundation.a;
-			remoteRef = BED4D58518C61BCB00325E82 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		BED4D58818C61BCB00325E82 /* DTCoreText.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = DTCoreText.framework;
-			remoteRef = BED4D58718C61BCB00325E82 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		BEFF435F18DC94FA00D1EC01 /* ReactiveCocoa.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -976,7 +841,7 @@
 				PRODUCT_NAME = iReddit;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "Externals/DTCoreText/Core/** Externals/DTCoreText/Externals/DTFoundation/Core/**";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -1003,7 +868,7 @@
 				PRODUCT_NAME = iReddit;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "Externals/DTCoreText/Core/** Externals/DTCoreText/Externals/DTFoundation/Core/**";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
@@ -1053,7 +918,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "Externals/DTCoreText/Core/** Externals/DTCoreText/Externals/DTFoundation/Core/**";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Distribution;
 		};

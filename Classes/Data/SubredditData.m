@@ -10,7 +10,7 @@
 
 @interface SubredditData ()
 @property (nonatomic, strong) NSMutableSet *addresses;
-@property (nonatomic, strong) NSMutableArray *stories;
+@property (nonatomic, strong) NSMutableArray *storiesArray;
 @end
 
 @implementation SubredditData
@@ -23,17 +23,17 @@
 	{
         self.newsModeIndex = 0;
 		_subreddit = subreddit;
-        _stories = [[NSMutableArray alloc] init];
+        self.storiesArray = [[NSMutableArray alloc] init];
         _addresses = [NSMutableSet set];
     }
 	
 	return self;
 }
 -(Story *)storyWithIndex:(int)anIndex {
-    return [_stories objectAtIndex:anIndex];
+    return [self.storiesArray  objectAtIndex:anIndex];
 }
 -(void)removeStory:(Story *)story {
-    [_stories removeObject:story];
+    [self.storiesArray  removeObject:story];
 }
 - (BOOL)canLoadMore
 {
@@ -42,9 +42,12 @@
 
 - (BOOL)isLoaded
 {
-    return [_stories count] > 0;
+    return [self.storiesArray  count] > 0;
 }
 
+- (NSArray *)stories {
+    return self.storiesArray;
+}
 - (void)loadMore:(BOOL)more
 {
     NSString *loadURL = [self fullURL];
@@ -58,8 +61,8 @@
         loadURL = [NSString stringWithFormat:@"%@%@%@", [self fullURL], MoreItemsFormattedString, lastItemID];
     } else {
         // clear the stories for this subreddit
-        [self.stories removeAllObjects];
-        self.stories = [NSMutableArray array];
+        [self.storiesArray  removeAllObjects];
+        self.storiesArray  = [NSMutableArray array];
     }
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:loadURL]];
@@ -89,15 +92,15 @@
 		NSDictionary *data = [result objectForKey:@"data"];
 		
 		Story *theStory = [Story storyWithDictionary:data inReddit:self];
-		theStory.index = [_stories count];
+		theStory.index = [self.storiesArray count];
         
-        if (![_stories containsObject:theStory] || ![_addresses containsObject:theStory.name]) {
+        if (![_addresses containsObject:theStory.name]) {
             [_addresses addObject:theStory.name];
-            [_stories addObject:theStory];
+            [self.storiesArray  addObject:theStory];
         }
 	}
     
-	canLoadMore = [_stories count] > totalCount;
+	canLoadMore = [self.storiesArray  count] > totalCount;
     
 }
 - (NSString *)fullURL {
@@ -106,7 +109,7 @@
 
 - (NSUInteger)totalStories
 {
-    return [self.stories count];
+    return [self.storiesArray count];
 }
 
 - (NSString *)newsModeString
@@ -131,13 +134,9 @@
 - (void)invalidate:(BOOL)erase 
 {
     if (erase) {
-        [self.stories removeAllObjects];
+        [self.storiesArray  removeAllObjects];
+        [self.addresses removeAllObjects];
     }
-}
-
-- (void)dealloc
-{
-    [_stories removeAllObjects];
 }
 
 

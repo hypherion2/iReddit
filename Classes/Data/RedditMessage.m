@@ -27,9 +27,10 @@
     messageBody = [messageBody stringByReplacingOccurrencesOfString:@"&amp;gt;" withString:@"&gt;"];
     
     //NSLog(@"$%@",messageBody);
-    NSData *data = [messageBody dataUsingEncoding:NSUTF8StringEncoding];
-    NSMutableDictionary *options = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:DTUseiOS6Attributes];
- 	aMessage.body = [[NSAttributedString alloc] initWithHTMLData:data options:options documentAttributes:NULL];
+    NSData *htmlData = [messageBody dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *options = @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType };
+    NSError      *error = nil;
+    aMessage.body = [[NSAttributedString alloc] initWithData:htmlData options:options documentAttributes:nil error:&error];
 	aMessage.author = (NSString *)[dict objectForKey:@"author"];
 	aMessage.subject = (NSString *)[dict objectForKey:@"subject"];
 	aMessage.destination = (NSString *)[dict objectForKey:@"destination"];
@@ -60,15 +61,8 @@
     CGSize constrainedSize = CGSizeMake(280, 1000);
   //  aMessage.body.size.width = constrainedSize.width;
     CGRect frame;
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0) {
         frame = [aMessage.body boundingRectWithSize:constrainedSize options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
-    } else {
-        CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)aMessage.body);
-        CGSize targetSize = CGSizeMake(320, CGFLOAT_MAX);
-        frame = CGRectZero;
-        frame.size = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, [aMessage.body length]), NULL, targetSize, NULL);
-        CFRelease(framesetter);
-    }
+    
 	height = frame.size.height;
 	height += (CGFloat)([aMessage.subject sizeWithFont:subjectFont constrainedToSize:constrainedSize lineBreakMode:NSLineBreakByTruncatingTail]).height;
 	height += 18.0 + 12.0 + 12.0;
@@ -76,17 +70,10 @@
 	[aMessage setHeight:height forIndex:PORTRAIT_INDEX];
 
     constrainedSize = CGSizeMake(440, 1000);
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0) {
         frame = [aMessage.body boundingRectWithSize:constrainedSize options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
-    } else {
-        CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)aMessage.body);
-        CGSize targetSize = CGSizeMake(320, CGFLOAT_MAX);
-        frame = CGRectZero;
-        frame.size = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, [aMessage.body length]), NULL, targetSize, NULL);
-        CFRelease(framesetter);
-    }
+   
 	height = frame.size.height;
-    height += (CGFloat)([aMessage.subject sizeWithFont:subjectFont constrainedToSize:constrainedSize lineBreakMode:NSLineBreakByTruncatingTail]).height;
+    height += (CGFloat)([aMessage.subject sizeWithFont:subjectFont constrainedToSize:constrainedSize lineBreakMode:NSLineBreakByCharWrapping]).height;
 	height += 18.0 + 12.0 + 12.0;
 
 	[aMessage setHeight:height forIndex:LANDSCAPE_INDEX];	

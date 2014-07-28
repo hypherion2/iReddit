@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DTCoreText.h"
 #import "CreateMessage.h"
 #import "MessageCell.h"
 
