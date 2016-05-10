@@ -506,7 +506,7 @@
                     [controller setSubject:[NSString stringWithFormat:@"[ireddit] check out this link from %@",
                                             story.subreddit ? [NSString stringWithFormat:@"the %@ reddit", story.subreddit] : @"reddit"]];
                 
-                [controller setMessageBody:[NSString stringWithFormat:@"%@ shared a link with you from iReddit (http://reddit.com/iphone):\n\n%@\n\n\"%@\"\n\n%@\n\n%@",
+                [controller setMessageBody:[NSString stringWithFormat:@"%@ shared a link with you from iReddit (https://reddit.com/iphone):\n\n%@\n\n\"%@\"\n\n%@\n\n%@",
                                             user ? user : @"someone",
                                             story.URL,
                                             story.title ? story.title : @"sorry, we couldn't find the title. you'll have to click to find out",

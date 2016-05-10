@@ -148,7 +148,7 @@ NSMutableDictionary *storyDictionary;
 
 - (NSString *)commentsURL
 {
-	return [NSString stringWithFormat:@"http://reddit.com/comments/%@", self.identifier];
+	return [NSString stringWithFormat:@"https://reddit.com/comments/%@", self.identifier];
 }
 
 - (BOOL)hasThumbnail

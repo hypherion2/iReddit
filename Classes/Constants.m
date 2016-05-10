@@ -8,7 +8,7 @@
 
 #import "Constants.h"
 
-NSString *const RedditBaseURLString		 = @"http://www.reddit.com";
+NSString *const RedditBaseURLString		 = @"https://www.reddit.com";
 NSString *const RedditAPIExtensionString = @".json?limit=25";
 NSString *const MoreItemsFormattedString = @"&after=";
 

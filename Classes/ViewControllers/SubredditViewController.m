@@ -34,8 +34,8 @@
     self = [super init];
     if (self) {
         
-		subredditItem = anItem;
-		showTabBar = ![subredditItem[@"url"] isEqual:@"/saved/"] && ![subredditItem[@"url"] isEqual:@"/recommended/"];
+        subredditItem = anItem;
+        showTabBar = NO;//![subredditItem[@"url"] isEqual:@"/saved/"] && ![subredditItem[@"url"] isEqual:@"/recommended/"];
 		
         self.title = [anItem[@"url"] isEqual:@"/"] ? @"Front Page" : anItem[@"text"];
 		
@@ -47,11 +47,10 @@
         
 		self.hidesBottomBarWhenPushed = YES;
 		self.navigationBar = [[UINavigationBar alloc] init];
-		self.navigationBar.TintColor = [iRedditAppDelegate redditNavigationBarTintColor];
-        self.navigationController.navigationBar.tintColor = [iRedditAppDelegate redditNavigationBarTintColor];
+		self.navigationBar.barTintColor = [iRedditAppDelegate redditNavigationBarTintColor];
+        self.navigationBar.translucent = NO;
+        self.navigationController.navigationBar.barTintColor = [iRedditAppDelegate redditNavigationBarTintColor];
         [self.view addSubview:self.navigationBar];
-        
-        
 	}
     
 	return self;
@@ -155,11 +154,11 @@
 	aFrame.origin.y = tabBar ? CGRectGetHeight(tabBar.frame) : 0.0;
 	aFrame.size.height -= aFrame.origin.y;
 	
-    if (iosVer >= 7.0) {
+    /*if (iosVer >= 7.0) {
         aFrame.origin.y += 64;
         [[UINavigationBar appearance] setTintColor:[iRedditAppDelegate redditNavigationBarTintColor]];
         aFrame.size.height -= 64;
-    }
+    }*/
 	//UIView *wrapper = [[[UIView alloc] initWithFrame:aFrame] autorelease];
     //wrapper.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
