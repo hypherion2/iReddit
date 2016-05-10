@@ -7,6 +7,7 @@
 //
 
 #import "CommentAccessoryView.h"
+#import "UIButton+Extensions.h"
 
 
 @implementation CommentAccessoryView
@@ -28,6 +29,8 @@
         self.titleLabel.textColor = [UIColor whiteColor];
 		[self setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.75] forState:UIControlStateNormal];
 		self.titleLabel.shadowOffset = CGSizeMake(0.0, -0.5);
+        // make hit area larger than button
+        [self setHitTestEdgeInsets:UIEdgeInsetsMake(-10, -10, -10, -10)];
     }
 	
     return self;

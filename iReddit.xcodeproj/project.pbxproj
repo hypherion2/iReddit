@@ -92,6 +92,7 @@
 		ADFB54950FEAC6700067CEC1 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ADFB54940FEAC6700067CEC1 /* libxml2.dylib */; };
 		ADFB549B0FEAC6FB0067CEC1 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADFB549A0FEAC6FB0067CEC1 /* AddressBook.framework */; };
 		ADFB556C0FEACC5C0067CEC1 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = ADFB556B0FEACC5C0067CEC1 /* Default.png */; };
+		B97077061CE29ECD00D0EB31 /* UIButton+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = B97077051CE29ECD00D0EB31 /* UIButton+Extensions.m */; };
 		BE0910F016F7C47900EE6296 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BE0910EF16F7C47900EE6296 /* Default-568h@2x.png */; };
 		BE27743716F7CF59009D445C /* PocketAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = BE27741916F7CF59009D445C /* PocketAPI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BE27743816F7CF59009D445C /* PocketAPILogin.m in Sources */ = {isa = PBXBuildFile; fileRef = BE27741B16F7CF59009D445C /* PocketAPILogin.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -270,6 +271,8 @@
 		ADFB54940FEAC6700067CEC1 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		ADFB549A0FEAC6FB0067CEC1 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		ADFB556B0FEACC5C0067CEC1 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
+		B97077041CE29EA000D0EB31 /* UIButton+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+Extensions.h"; path = "Extensions/UIButton+Extensions.h"; sourceTree = "<group>"; };
+		B97077051CE29ECD00D0EB31 /* UIButton+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIButton+Extensions.m"; path = "Extensions/UIButton+Extensions.m"; sourceTree = "<group>"; };
 		BE0910EF16F7C47900EE6296 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BE27741716F7CF59009D445C /* PocketAPI+NSOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PocketAPI+NSOperation.h"; sourceTree = "<group>"; };
 		BE27741816F7CF59009D445C /* PocketAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketAPI.h; sourceTree = "<group>"; };
@@ -435,6 +438,7 @@
 		ADFB53350FEAC3EA0067CEC1 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B97077031CE29E3B00D0EB31 /* Extensions */,
 				ADFB533F0FEAC3EA0067CEC1 /* comments.html */,
 				ADFB53400FEAC3EA0067CEC1 /* Constants.h */,
 				ADFB53410FEAC3EA0067CEC1 /* Constants.m */,
@@ -565,6 +569,15 @@
 				ADFB53AB0FEAC4010067CEC1 /* thedoor.pcm */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		B97077031CE29E3B00D0EB31 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B97077041CE29EA000D0EB31 /* UIButton+Extensions.h */,
+				B97077051CE29ECD00D0EB31 /* UIButton+Extensions.m */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		BE2773E516F7CF59009D445C /* Pocket-ObjC-SDK */ = {
@@ -803,6 +816,7 @@
 				ADFB53880FEAC3EA0067CEC1 /* SettingsViewController.m in Sources */,
 				ADFB53890FEAC3EA0067CEC1 /* StoryViewController.m in Sources */,
 				ADFB538A0FEAC3EA0067CEC1 /* SubredditViewController.m in Sources */,
+				B97077061CE29ECD00D0EB31 /* UIButton+Extensions.m in Sources */,
 				ADFB538B0FEAC3EA0067CEC1 /* AlienProgressView.m in Sources */,
 				ADFB538C0FEAC3EA0067CEC1 /* CommentAccessoryView.m in Sources */,
 				ADFB538E0FEAC3EA0067CEC1 /* MessageCell.m in Sources */,
