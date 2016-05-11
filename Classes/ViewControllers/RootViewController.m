@@ -51,12 +51,7 @@
 	[super loadView];
 	
     UIImage *mainTitleImage;
-    CGFloat iosVer = [[[UIDevice currentDevice] systemVersion] floatValue];
-    if (iosVer >= 7.0) {
-        mainTitleImage = [UIImage imageNamed:@"mainTitle-iOS7"];
-    } else {
-        mainTitleImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"mainTitle" ofType:@"png"]];
-    }
+    mainTitleImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"mainTitle" ofType:@"png"]];
 	self.navigationItem.titleView = [[UIImageView alloc] initWithImage:mainTitleImage];
 	
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(edit:)];

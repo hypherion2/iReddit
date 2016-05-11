@@ -71,7 +71,7 @@
 	
 	_scoreItem = [UIButton buttonWithType:UIButtonTypeCustom];
 	_scoreItem.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
-	_scoreItem.showsTouchWhenHighlighted = NO;
+	_scoreItem.showsTouchWhenHighlighted = YES;
 	_scoreItem.adjustsImageWhenHighlighted = NO;
     
     CGFloat iosVer = [[[UIDevice currentDevice] systemVersion] floatValue];
@@ -795,13 +795,6 @@ static NSString * encodeByAddingPercentEscapes(NSString *input) {
 {
     [super viewWillAppear:animated];
     [self setScore:story.score];
-    
-    CGFloat iosVer = [[[UIDevice currentDevice] systemVersion] floatValue];
-    if (iosVer >= 7.0) {
-        self.navigationController.toolbar.tintColor = [iRedditAppDelegate redditNavigationBarTintColor];
-    } else {
-    self.navigationController.toolbar.tintColor = [UIColor blackColor];
-    }
     
     if (self.navigationController.toolbarHidden)
         [self.navigationController setToolbarHidden:NO animated:YES];

@@ -105,6 +105,8 @@ iRedditAppDelegate *sharedAppDelegate;
     [[UINavigationBar appearance] setBarTintColor:[iRedditAppDelegate redditNavigationBarTintColor]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    [[UIToolbar appearance] setBarTintColor:[iRedditAppDelegate redditNavigationBarTintColor]];
+    [[UIToolbar appearance] setTintColor:[UIColor whiteColor]];
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {

@@ -76,7 +76,7 @@
         NSLog(@"%@",error.description);
         return;
     }
-       // parse the JSON data that we retrieved from the server
+    // parse the JSON data that we retrieved from the server
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
     NSInteger totalCount = 0;
     // drill down into the JSON object to get the part 
@@ -96,11 +96,12 @@
         
         if (![_addresses containsObject:theStory.name]) {
             [_addresses addObject:theStory.name];
-            [self.storiesArray  addObject:theStory];
+            [self.storiesArray addObject:theStory];
         }
 	}
     
-	canLoadMore = [self.storiesArray  count] > totalCount;
+    NSLog(@"Loaded %lu stories", (unsigned long)[self.storiesArray count]);
+	canLoadMore = [self.storiesArray count] > totalCount;
     
 }
 - (NSString *)fullURL {
