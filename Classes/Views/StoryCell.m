@@ -52,7 +52,7 @@
 
 		[storyTitleView setFont:[UIFont boldSystemFontOfSize:14]];
 		[storyTitleView setTextColor:[UIColor blueColor]];
-		[storyTitleView setLineBreakMode:NSLineBreakByWordWrapping];
+		[storyTitleView setLineBreakMode:NSLineBreakByTruncatingTail];
 		[storyTitleView setNumberOfLines:0];
 		//[storyTitleView setLineBreakMode:UILineBreakModeWordWrap];
 		

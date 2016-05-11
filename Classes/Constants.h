@@ -33,6 +33,7 @@ NSString *const playSoundOnShakeKey;
 NSString *const visitedStoriesKey;
 NSString *const useCustomRedditListKey;
 NSString *const showLoadingAlienKey;
+NSString *const showTabBarKey;
 NSString *const RedditUserLoggedInNotification;
 NSString *const instapaperUsernameKey;
 NSString *const instapaperPasswordKey;

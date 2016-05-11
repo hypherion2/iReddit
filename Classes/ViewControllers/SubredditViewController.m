@@ -35,7 +35,7 @@
     if (self) {
         
         subredditItem = anItem;
-        showTabBar = NO;//![subredditItem[@"url"] isEqual:@"/saved/"] && ![subredditItem[@"url"] isEqual:@"/recommended/"];
+        showTabBar = [[NSUserDefaults standardUserDefaults] boolForKey:showTabBarKey] && ![subredditItem[@"url"] isEqual:@"/saved/"] && ![subredditItem[@"url"] isEqual:@"/recommended/"];
 		
         self.title = [anItem[@"url"] isEqual:@"/"] ? @"Front Page" : anItem[@"text"];
 		
@@ -150,6 +150,13 @@
 	
 	aFrame.origin.y = tabBar ? CGRectGetHeight(tabBar.frame) : 0.0;
 	aFrame.size.height -= aFrame.origin.y;
+    
+    if (showTabBar) {
+        aFrame.origin.y += 64;
+        //[[UINavigationBar appearance] setTintColor:[iRedditAppDelegate redditNavigationBarTintColor]];
+        aFrame.size.height -= 64;
+    }
+
 	 	
 	self.tableView = [[UITableView alloc] initWithFrame:aFrame style:UITableViewStylePlain];
     self.tableView.rowHeight = 80.f;

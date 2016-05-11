@@ -285,6 +285,7 @@
                  [NSDictionary dictionaryWithObjectsAndKeys:@"Shake for New Story",@"title",[NSNumber numberWithBool:[defaults boolForKey:shakeForStoryKey]],@"value",shakeForStoryKey, @"key", @"switch", @"type", nil],
                  [NSDictionary dictionaryWithObjectsAndKeys:@"Show Loading Alien",@"title",[NSNumber numberWithBool:[defaults boolForKey:showLoadingAlienKey]],@"value",showLoadingAlienKey, @"key", @"switch", @"type", nil],
                  [NSDictionary dictionaryWithObjectsAndKeys:@"Allow Landscape",@"title",[NSNumber numberWithBool:[defaults boolForKey:allowLandscapeOrientationKey]],@"value",allowLandscapeOrientationKey, @"key", @"switch", @"type", nil],
+                  [NSDictionary dictionaryWithObjectsAndKeys:@"Show Tab Bar",@"title",[NSNumber numberWithBool:[defaults boolForKey:showTabBarKey]],@"value",showTabBarKey, @"key", @"switch", @"type", nil],
                  nil],
                 nil];
 }

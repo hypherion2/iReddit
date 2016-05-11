@@ -50,6 +50,7 @@ iRedditAppDelegate *sharedAppDelegate;
       [NSNumber numberWithBool:YES], useCustomRedditListKey,
       [NSNumber numberWithBool:YES], showLoadingAlienKey,
       [NSNumber numberWithBool:NO], usePocket,
+      [NSNumber numberWithBool:NO], showTabBarKey,
       [NSArray array], visitedStoriesKey,
       [NSArray array], redditSortOrderKey,
       redditSoundLightsaber, shakingSoundKey,
