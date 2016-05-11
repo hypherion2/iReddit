@@ -58,9 +58,9 @@
     [super viewDidLoad];
     self.navigationItem.leftBarButtonItem.action = @selector(backButtonDidPressed:);
     
-    self.navigationController.navigationBar.TintColor = [iRedditAppDelegate redditNavigationBarTintColor];
 	self.hidesBottomBarWhenPushed = NO;
-    
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName]];
 	
 	NSMutableArray *items = [NSMutableArray array];
 	
@@ -167,11 +167,11 @@
         [titleView setMinimumScaleFactor:12.0];
     }
     
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+    //if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
         [titleView setTextColor:[UIColor whiteColor]];
         [titleView setShadowColor:[UIColor colorWithWhite:0.2 alpha:1.0]];
         [titleView setShadowOffset:CGSizeMake(0, -1)];
-    }
+    //}
 	
 	[titleView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
 	[titleView setNumberOfLines:2];

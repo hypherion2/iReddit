@@ -47,9 +47,7 @@
         
 		self.hidesBottomBarWhenPushed = YES;
 		self.navigationBar = [[UINavigationBar alloc] init];
-		self.navigationBar.barTintColor = [iRedditAppDelegate redditNavigationBarTintColor];
         self.navigationBar.translucent = NO;
-        self.navigationController.navigationBar.barTintColor = [iRedditAppDelegate redditNavigationBarTintColor];
         [self.view addSubview:self.navigationBar];
 	}
     
@@ -114,7 +112,6 @@
 - (void)loadView
 {
 	[super loadView];
-    
     // create the tableview
     
     CGFloat iosVer = [[[UIDevice currentDevice] systemVersion] floatValue];
@@ -153,17 +150,7 @@
 	
 	aFrame.origin.y = tabBar ? CGRectGetHeight(tabBar.frame) : 0.0;
 	aFrame.size.height -= aFrame.origin.y;
-	
-    /*if (iosVer >= 7.0) {
-        aFrame.origin.y += 64;
-        [[UINavigationBar appearance] setTintColor:[iRedditAppDelegate redditNavigationBarTintColor]];
-        aFrame.size.height -= 64;
-    }*/
-	//UIView *wrapper = [[[UIView alloc] initWithFrame:aFrame] autorelease];
-    //wrapper.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
-	//aFrame.origin.y	= 0;
- 	
+	 	
 	self.tableView = [[UITableView alloc] initWithFrame:aFrame style:UITableViewStylePlain];
     self.tableView.rowHeight = 80.f;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

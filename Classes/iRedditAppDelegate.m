@@ -64,7 +64,6 @@ iRedditAppDelegate *sharedAppDelegate;
     self.navController = [[UINavigationController alloc] initWithRootViewController:[[RootViewController alloc] init]];
 	self.navController.delegate = (id <UINavigationControllerDelegate>)self;
 	navController.toolbarHidden = NO;
-    navController.navigationBar.tintColor = [iRedditAppDelegate redditNavigationBarTintColor];
     self.window.rootViewController = navController;
     //	[window addSubview:navController.view];
 	
@@ -102,6 +101,10 @@ iRedditAppDelegate *sharedAppDelegate;
         [[UIApplication sharedApplication] setStatusBarHidden:NO];
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }
+    
+    [[UINavigationBar appearance] setBarTintColor:[iRedditAppDelegate redditNavigationBarTintColor]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {

@@ -43,7 +43,6 @@
 	[super loadView];
 	[self createModel];
 	self.title = @"Login";
-	self.navigationController.navigationBar.tintColor = [iRedditAppDelegate redditNavigationBarTintColor];
     
     self.navigationBar = [[UINavigationBar alloc] init];
 	
@@ -52,7 +51,6 @@
 	UINavigationItem *item = nil;
     item = [[UINavigationItem alloc] initWithTitle:@"Login"];
 
-	self.navigationBar.tintColor = [iRedditAppDelegate redditNavigationBarTintColor];
 	
 	[self.navigationBar pushNavigationItem:item animated:NO];
     [self.view addSubview:_navigationBar];

@@ -27,8 +27,6 @@
 	[super loadView];
 	
 	self.title = @"Inbox";
-
-	self.navigationBar.tintColor = [iRedditAppDelegate redditNavigationBarTintColor];
 	
 	//self.variableHeightRows = YES;
 
@@ -85,7 +83,6 @@
     _controller.to = @"";
     _controller.delegate = self;
     UINavigationController* navController = [[UINavigationController alloc] init];
-    navController.navigationBar.tintColor = self.navigationBar.tintColor;
     _controller.title = @"New Message";
     [navController pushViewController:_controller animated:NO];
     
@@ -98,7 +95,6 @@
     _controller.to = message.author;
     _controller.delegate = self;
     UINavigationController* navController = [[UINavigationController alloc] init];
-    navController.navigationBar.tintColor = self.navigationBar.tintColor;
     [navController pushViewController:_controller animated:NO];
     _controller.title = _controller.subject;
     [self presentViewController:navController animated:YES completion:nil];

@@ -22,7 +22,6 @@
 	if (self = [super initWithStyle:UITableViewStyleGrouped])
 	{
 		self.title = @"Home";
-        self.navigationController.navigationBar.tintColor = [iRedditAppDelegate redditNavigationBarTintColor];
 		self.hidesBottomBarWhenPushed = YES;
 		
 		NSNotificationCenter *center = [NSNotificationCenter defaultCenter];

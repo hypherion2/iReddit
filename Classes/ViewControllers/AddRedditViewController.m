@@ -57,7 +57,6 @@
 - (void)loadView {
     
     [super loadView];
-	self.navigationController.navigationBar.TintColor = [iRedditAppDelegate redditNavigationBarTintColor];
     
 	self.navigationBar = [[UINavigationBar alloc] init];
 	
@@ -80,8 +79,6 @@
                                                                              target:self
                                                                              action:@selector(save:)];
     
-	self.navigationBar.tintColor = [iRedditAppDelegate redditNavigationBarTintColor];
-	
 	[self.navigationBar pushNavigationItem:item animated:NO];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 75.0, self.view.bounds.size.width, self.view.bounds.size.height - 75.0)

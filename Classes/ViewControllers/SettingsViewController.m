@@ -57,7 +57,6 @@
 	[super loadView];
 	self.title = @"Settings";
     //	self.autoresizesForKeyboard = YES;
-	self.navigationController.navigationBar.TintColor = [iRedditAppDelegate redditNavigationBarTintColor];
     
     //	self.variableHeightRows = YES;
 	
