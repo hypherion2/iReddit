@@ -24,7 +24,6 @@
 @property (strong,nonatomic) NSNumber *count;
 @property (strong) UIWebView		  *webview;
 @property (weak)   UIButton			  *scoreItem;
-@property (weak)   UIButton			  *commentCountItem;
 @property (weak)   UIBarButtonItem	  *toggleButtonItem;
 @property (strong) UIBarButtonItem	  *moreButtonItem;
 @property (strong) UISegmentedControl *segmentedControl;
@@ -75,13 +74,9 @@
 	_scoreItem.adjustsImageWhenHighlighted = NO;
     
     CGFloat iosVer = [[[UIDevice currentDevice] systemVersion] floatValue];
-    if (iosVer >= 7.0) {
-        [_scoreItem setTitleColor:[iRedditAppDelegate redditNavigationBarTintColor] forState:UIControlStateNormal];
-//        [_scoreItem setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    } else {
-        [_scoreItem setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_scoreItem setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
-    }
+
+    [_scoreItem setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_scoreItem setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
 	
 	_scoreItem.titleLabel.shadowOffset = CGSizeMake(0.0, -1.0);
 	
@@ -92,23 +87,18 @@
     
 	if (!isForComments) {
         //NSLog(@"Not for comments");
-		self.commentCountItem = [UIButton buttonWithType:UIButtonTypeCustom];
-		_commentCountItem.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
-		_commentCountItem.showsTouchWhenHighlighted = NO;
-		_commentCountItem.adjustsImageWhenHighlighted = NO;
-        if (iosVer >= 7.0) {
-          //  [_commentCountItem setFrame:CGRectMake(0, 0, 30, 20)];
-            [_commentCountItem setTitleColor:[iRedditAppDelegate redditNavigationBarTintColor] forState:UIControlStateNormal];
-           // [_commentCountItem setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        } else {
-            [_commentCountItem setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [_commentCountItem setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
-        }
-        [_commentCountItem setTitle:[_count stringValue] forState:UIControlStateNormal];
-        [_commentCountItem sizeToFit];
-		_commentCountItem.titleLabel.shadowOffset = CGSizeMake(0.0, -1.0);
+		UIButton *commentCountItem = [UIButton buttonWithType:UIButtonTypeCustom];
+		commentCountItem.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+		commentCountItem.showsTouchWhenHighlighted = NO;
+		commentCountItem.adjustsImageWhenHighlighted = NO;
+        [commentCountItem setFrame:CGRectMake(0, 0, 30, 20)];
+        [commentCountItem setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [commentCountItem setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [commentCountItem setTitle:[_count stringValue] forState:UIControlStateNormal];
+        [commentCountItem sizeToFit];
+		commentCountItem.titleLabel.shadowOffset = CGSizeMake(0.0, -1.0);
 		
-		[items addObject:[[UIBarButtonItem alloc] initWithCustomView:_commentCountItem]];
+		[items addObject:[[UIBarButtonItem alloc] initWithCustomView:commentCountItem]];
 		
 		[items addObject:[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"commentBubble.png"] style:UIBarButtonItemStylePlain target:self action:@selector(showComments:)]];
 	} else {
@@ -128,7 +118,6 @@
     
 	if ([viewControllers count] > 2 && [[viewControllers objectAtIndex:[viewControllers count] - 2] isKindOfClass:[StoryViewController class]])
 	{
-		_commentCountItem.enabled = NO;
 		_toggleButtonItem.enabled = NO;
 	}
     
@@ -229,22 +218,9 @@
 	
 	[_webview stopLoading];
 	
-    //NSLog(@"CommentCountItem: %@",_commentCountItem);
-	if (_commentCountItem) {
-		[self loadStory];
-      //  NSLog(@"Load Story");
-	} else {
-		[self loadStoryComments];
-        //NSLog(@"Load Comments");
-    }
     
 	[_loadingView setHidden:NO];
 	[_loadingView startAnimating];
-    
-	if (_commentCountItem)
-		self.title = @"Story";
-	else
-		self.title = @"Comments";
     
 	[self setNumberOfComments:story.totalComments];
 	[self setScore:story.score];
@@ -806,7 +782,6 @@ static NSString * encodeByAddingPercentEscapes(NSString *input) {
         //specific stuff for being popped off stack
         self.story = nil;
         self.scoreItem = nil;
-        self.commentCountItem = nil;
         self.toggleButtonItem = nil;
         self.segmentedControl = nil;
         self.loadingView = nil;
