@@ -160,7 +160,7 @@ iRedditAppDelegate *sharedAppDelegate;
 
 - (void)loadRandomData
 {
-	[randomData loadMore:NO];
+    [randomData loadMore:NO];
    // [self performSelector:@selector(loadRandomData) withObject:nil afterDelay:60.0];
 }
 

@@ -54,6 +54,8 @@
     
     if(more) {
         id object = [self.stories lastObject];
+        if (object == nil)
+            return;
 
         Story *story = (Story *)object;
         NSString *lastItemID = story.name;

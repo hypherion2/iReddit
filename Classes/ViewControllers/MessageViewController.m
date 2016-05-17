@@ -11,7 +11,7 @@
 #import "RedditMessage.h"
 #import "Constants.h"
 #import "LoginController.h"
-#import "RedditWebView.h"
+
 
 @interface MessageViewController ()
 @property (nonatomic, strong) MessageDataSource *dataSource;

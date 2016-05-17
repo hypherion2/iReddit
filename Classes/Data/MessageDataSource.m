@@ -109,7 +109,7 @@
 }
 
 - (void)loadMore:(BOOL)more {
-	NSString *loadURL = [NSString stringWithFormat:@"%@%@", RedditBaseURLString, RedditMessagesAPIString];
+	NSString *loadURL = [NSString stringWithFormat:@"%@%@?limit=25", RedditBaseURLString, RedditMessagesAPIString];
     
 	if (more) {
 		id object = [self.items lastObject];
@@ -124,7 +124,7 @@
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:loadURL]];
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
     [request setHTTPShouldHandleCookies:YES];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    //[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPMethod:@"GET"];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         if (error) {

@@ -42,7 +42,7 @@
 
 }
 -(void)newCaptcha {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.reddit.com/api/new_captcha"]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://www.reddit.com/api/new_captcha"]];
     [request setHTTPBody:[@"api_type=json" dataUsingEncoding:NSUTF8StringEncoding]];
     [request setHTTPMethod:@"POST"];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -52,7 +52,7 @@
             id dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             if ([dict isKindOfClass:[NSDictionary class]]) {
                 _captchaID = dict[@"json"][@"data"][@"iden"];
-                _captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.reddit.com/captcha/%@.png",_captchaID]]]];
+                _captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://www.reddit.com/captcha/%@.png",_captchaID]]]];
             }
         }
     }];
