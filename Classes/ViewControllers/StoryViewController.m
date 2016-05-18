@@ -786,6 +786,7 @@ static NSString * encodeByAddingPercentEscapes(NSString *input) {
         self.segmentedControl = nil;
         self.loadingView = nil;
         
+        [_webview setDelegate:nil];
         [_webview stopLoading];
         [_webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
         
@@ -794,7 +795,7 @@ static NSString * encodeByAddingPercentEscapes(NSString *input) {
         self.webview.frame = frame;
         
         [self.navigationController setToolbarHidden:YES animated:YES];
-        [_webview setDelegate:nil];
+        
         [_webview removeFromSuperview];
         [[NSURLCache sharedURLCache] removeAllCachedResponses];
         

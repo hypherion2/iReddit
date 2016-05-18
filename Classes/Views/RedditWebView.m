@@ -27,14 +27,14 @@
 
 + (NSString *)storyIDForURL:(NSURL *)aURL commentID:(NSString **)stringPtr
 {
-	NSString *path = [aURL path];
+    NSString *path = [aURL path];
 	NSString *host = [aURL host];
 	
 	NSRange redditComRange = [host rangeOfString:@"reddit.com"];
 	NSRange commentsRange = [path rangeOfString:@"/comments/"];
 		
 	//if (redditComRange.location > 0 && commentsRange.location >= 0 && NSMaxRange(commentsRange) < [path length])
-    if (redditComRange.location > 0 && NSMaxRange(commentsRange) < [path length])
+    if (redditComRange.location != NSNotFound && NSMaxRange(commentsRange) < [path length])
 	{
 		NSString *storyID = nil;
 		NSString *remainder = [path substringFromIndex:NSMaxRange(commentsRange)];		
@@ -125,6 +125,11 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {    
     currentNavigationType = navigationType;
+    
+    if ([@"about:blank" isEqualToString:[[request URL] absoluteString]])
+    {
+        return YES;
+    }
     
 	BOOL response = YES;
     if (_realDelegate) {

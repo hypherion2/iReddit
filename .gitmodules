@@ -4,6 +4,3 @@
 [submodule "Externals/GIDAAlertView"]
 	path = Externals/GIDAAlertView
 	url = http://github.com/GIDAIbero/GIDAAlertView.git
-[submodule "Externals/ReactiveCocoa"]
-	path = Externals/ReactiveCocoa
-	url = https://github.com/ReactiveCocoa/ReactiveCocoa.git
