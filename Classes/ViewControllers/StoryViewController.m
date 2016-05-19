@@ -426,6 +426,8 @@
         if ([MFMessageComposeViewController canSendText]) {
             [otherButtonTitles addObject:@"Send SMS"];
         }
+        if (story.subreddit)
+            [otherButtonTitles addObject:[NSString stringWithFormat:@"Open /r/%@", story.subreddit]];
         _currentSheet = [[UIActionSheet alloc]
                          initWithTitle:@""
                          delegate:(id <UIActionSheetDelegate>)self
@@ -544,10 +546,20 @@
             break;
         case 5:
         {
-            MFMessageComposeViewController *message = [[MFMessageComposeViewController alloc] init];
-            message.messageComposeDelegate = self;
-            [message setBody:self.webview.request.URL.absoluteString];
-            [self presentViewController:message animated:YES completion:nil];
+            if ([MFMessageComposeViewController canSendText]) {
+                MFMessageComposeViewController *message = [[MFMessageComposeViewController alloc] init];
+                message.messageComposeDelegate = self;
+                [message setBody:self.webview.request.URL.absoluteString];
+                [self presentViewController:message animated:YES completion:nil];
+                break;
+            }
+        }
+        case 6:
+        {
+            SubredditViewController *controller = [[SubredditViewController alloc] initWithField:
+                                                   [NSDictionary dictionaryWithObjectsAndKeys:story.subreddit, @"text", [NSString stringWithFormat:@"/r/%@",story.subreddit], @"url", nil]];
+            [self.navigationController pushViewController:controller animated:NO];
+            break;
         }
         default:
             [self actionSheetCancel:_currentSheet];
