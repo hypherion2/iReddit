@@ -193,7 +193,7 @@
     {
         lastSort = @"confidence";
     }
-	NSString *path = [NSString stringWithFormat:@"%@?id=%@&title=%@&author=%@&created=%@&domain=%@&base=%@&sort=%@",
+	NSString *path = [NSString stringWithFormat:@"%@?id=%@&title=%@&author=%@&created=%@&domain=%@&base=%@&jump=%@&sort=%@",
 					  [[NSBundle mainBundle] pathForResource:@"comments" ofType:@"html"],
 					  [theID stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
 					  [@"Loading story..." stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
@@ -201,6 +201,7 @@
 					  [[NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]] stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
 					  [@"reddit.com" stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
 					  [RedditBaseURLString stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
+                      [commentID stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
                       lastSort
 					  ];
 		
@@ -218,7 +219,7 @@
     {
         lastSort = @"confidence";
     }
-	NSString *path = [NSString stringWithFormat:@"%@?id=%@&title=%@&author=%@&created=%@&domain=%@&base=%@&sort=%@",
+	NSString *path = [NSString stringWithFormat:@"%@?id=%@&title=%@&author=%@&created=%@&domain=%@&base=%@&jump=%@&sort=%@",
 					  [[NSBundle mainBundle] pathForResource:@"comments" ofType:@"html"],
 					  [story.identifier stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
 					  [story.title stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
@@ -226,6 +227,7 @@
 					  [story.created stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
 					  [story.domain stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
 					  [RedditBaseURLString stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
+                      [commentID stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
                       lastSort
 					  ];
 	NSURL *url = [[NSURL alloc] initWithScheme:@"file" host:@"localhost" path:path];
