@@ -383,7 +383,7 @@ p {
 	<div id="storyinfo">
 		<div id="storyid" style="display:none;"></div>
 		<div id="storytitlewrapper"><span id="storytitle">Loading the current story.</span> (<span id="storydomain">domain</span>)</div>
-		<div id="submittedby">submitted <span id="storydate"></span> by <span id="storyauthor"></span></div>
+		<div id="submittedby">submitted <span id="storydate"></span> by <span id="storyauthor"></span> in <span id="subreddit"></span></div>
 	</div>
 	
 	<div id="selfpost">
@@ -494,6 +494,7 @@ p {
 	$("storyid").innerText	  = arguments["id"];  
 	$("storydate").innerText	= howLongAgoString(parseInt(arguments["created"], 10))+" ago";
 	$("storyauthor").innerText  = arguments["author"];
+    $("subreddit").innerText = arguments["subreddit"];
 
 	JUMP_TO  = decodeURIComponent(arguments["jump"]);
 	BASE_URL = decodeURIComponent(arguments["base"]);

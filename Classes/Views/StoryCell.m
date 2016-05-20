@@ -61,14 +61,14 @@
 
 		[storyDescriptionView setFont:[UIFont boldSystemFontOfSize:12]];
 		[storyDescriptionView setTextColor:[UIColor grayColor]];
-		[storyDescriptionView setLineBreakMode:NSLineBreakByWordWrapping];
+		[storyDescriptionView setLineBreakMode:NSLineBreakByTruncatingTail];
 		
 		secondaryDescriptionView = [[UILabel alloc] initWithFrame:CGRectZero];
 		secondaryDescriptionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		
 		[secondaryDescriptionView setFont:[UIFont systemFontOfSize:12]];
 		[secondaryDescriptionView setTextColor:[UIColor grayColor]];
-		[secondaryDescriptionView setLineBreakMode:NSLineBreakByWordWrapping];
+        [secondaryDescriptionView setLineBreakMode:NSLineBreakByTruncatingTail];
 
 		[[self contentView] addSubview:storyTitleView];
 		[[self contentView] addSubview:storyDescriptionView];

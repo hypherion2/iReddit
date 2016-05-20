@@ -219,11 +219,12 @@
     {
         lastSort = @"confidence";
     }
-	NSString *path = [NSString stringWithFormat:@"%@?id=%@&title=%@&author=%@&created=%@&domain=%@&base=%@&jump=%@&sort=%@",
+	NSString *path = [NSString stringWithFormat:@"%@?id=%@&title=%@&author=%@&subreddit=%@&created=%@&domain=%@&base=%@&jump=%@&sort=%@",
 					  [[NSBundle mainBundle] pathForResource:@"comments" ofType:@"html"],
 					  [story.identifier stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
 					  [story.title stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
 					  [story.author stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
+                      [story.subreddit stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
 					  [story.created stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
 					  [story.domain stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
 					  [RedditBaseURLString stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding],
