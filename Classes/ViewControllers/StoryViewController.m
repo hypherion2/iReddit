@@ -20,6 +20,9 @@
 
 @interface StoryViewController () {
     BOOL		isForComments;
+    NSInteger   actionSheetItemIndexPocket;
+    NSInteger   actionSheetItemIndexSMS;
+    NSInteger   actionSheetItemIndexGoToSubreddit;
 }
 @property (strong,nonatomic) NSNumber *count;
 @property (strong) UIWebView		  *webview;
@@ -418,28 +421,33 @@
                 }];
             }
             otherButtonTitles = [NSMutableArray arrayWithObjects:@"E-mail Link", @"Open Link in browser", @"Hide on reddit", @"Save on reddit", @"Save on Pocket", nil];
+            actionSheetItemIndexPocket = 4;
 		} else {
             otherButtonTitles = [NSMutableArray arrayWithObjects:@"E-mail Link", @"Open Link in browser", @"Hide on reddit", @"Save on reddit", nil];
+            actionSheetItemIndexPocket = -1;
             
         }
-       // MFMessageComposeViewController *mfmcvc = [[MFMessageComposeViewController alloc] init];
-        if ([MFMessageComposeViewController canSendText]) {
-            [otherButtonTitles addObject:@"Send SMS"];
-        }
-        if (story.subreddit)
-            [otherButtonTitles addObject:[NSString stringWithFormat:@"Open /r/%@", story.subreddit]];
+        
         _currentSheet = [[UIActionSheet alloc]
                          initWithTitle:@""
                          delegate:(id <UIActionSheetDelegate>)self
                          cancelButtonTitle:nil
                          destructiveButtonTitle:nil
                          otherButtonTitles:nil];
+
         for( NSString *title in otherButtonTitles)  {
             [_currentSheet addButtonWithTitle:title];
         }
-        [_currentSheet addButtonWithTitle:@"Cancel"];
-        [_currentSheet setCancelButtonIndex:[otherButtonTitles count]];
-      //  [_currentSheet addButtonWithTitle:title:cancelString];
+        
+        if ([MFMessageComposeViewController canSendText]) {
+            actionSheetItemIndexSMS = [_currentSheet addButtonWithTitle:@"Send SMS"];
+        } else actionSheetItemIndexSMS = -1;
+        
+        if (story.subreddit) {
+            actionSheetItemIndexGoToSubreddit = [_currentSheet addButtonWithTitle:[NSString stringWithFormat:@"Open /r/%@", story.subreddit]];
+        } else actionSheetItemIndexGoToSubreddit = -1;
+
+        _currentSheet.cancelButtonIndex = [_currentSheet addButtonWithTitle:@"Cancel"];
 		_currentSheet.actionSheetStyle = UIActionSheetStyleDefault;
 		
 		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
@@ -465,10 +473,30 @@
     if (![nurl isEqualToString:story.URL] && ![nurl isEqualToString:story.commentsURL]) {
         url = nurl;
     }
-    if ([actionSheet numberOfButtons] < 7 && buttonIndex > 3) {
-        buttonIndex++;
+    
+    if (buttonIndex == actionSheet.cancelButtonIndex)
+    {
+        [self actionSheetCancel:_currentSheet];
+        return;
     }
-	switch (buttonIndex) {
+    else if (buttonIndex == actionSheetItemIndexPocket)
+    {
+        [self saveOnPocket:nil];
+    }
+    else if (buttonIndex == actionSheetItemIndexSMS)
+    {
+        MFMessageComposeViewController *message = [[MFMessageComposeViewController alloc] init];
+        message.messageComposeDelegate = self;
+        [message setBody:self.webview.request.URL.absoluteString];
+        [self presentViewController:message animated:YES completion:nil];
+    }
+    else if (buttonIndex == actionSheetItemIndexGoToSubreddit)
+    {
+        SubredditViewController *controller = [[SubredditViewController alloc] initWithField:
+                                               [NSDictionary dictionaryWithObjectsAndKeys:story.subreddit, @"text", [NSString stringWithFormat:@"/r/%@",story.subreddit], @"url", nil]];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+    else switch (buttonIndex) {
         case 0:
             //email link
             if ([MFMailComposeViewController canSendMail])
@@ -493,8 +521,6 @@
                                     isHTML:NO];
                 
                 [self presentViewController:controller animated:YES completion:nil];
-                
-                //[[Beacon shared] startSubBeaconWithName:@"emailedStory" timeSession:NO];
             }
             else
             {
@@ -507,7 +533,6 @@
             break;
         case 1:
             //open link in safari
-            //[[Beacon shared] startSubBeaconWithName:@"openedInSafari" timeSession:NO];
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"useChrome"]) {
                 NSString *appName =
                 [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
@@ -525,7 +550,6 @@
             else
             {
                 [self hideCurrentStory:nil];
-                //	[[Beacon shared] startSubBeaconWithName:@"savedOnReddit" timeSession:NO];
             }
             break;
         case 3:
@@ -534,33 +558,8 @@
             else
             {
                 [self saveCurrentStory:nil];
-                //	[[Beacon shared] startSubBeaconWithName:@"savedOnReddit" timeSession:NO];
             }
             break;
-        case 4:
-            //		[self saveOnInstapaper:nil];
-            //		//[[Beacon shared] startSubBeaconWithName:@"instapaper" timeSession:NO];
-            //break;
-            //case 5:
-            [self saveOnPocket:nil];
-            break;
-        case 5:
-        {
-            if ([MFMessageComposeViewController canSendText]) {
-                MFMessageComposeViewController *message = [[MFMessageComposeViewController alloc] init];
-                message.messageComposeDelegate = self;
-                [message setBody:self.webview.request.URL.absoluteString];
-                [self presentViewController:message animated:YES completion:nil];
-                break;
-            }
-        }
-        case 6:
-        {
-            SubredditViewController *controller = [[SubredditViewController alloc] initWithField:
-                                                   [NSDictionary dictionaryWithObjectsAndKeys:story.subreddit, @"text", [NSString stringWithFormat:@"/r/%@",story.subreddit], @"url", nil]];
-            [self.navigationController pushViewController:controller animated:NO];
-            break;
-        }
         default:
             [self actionSheetCancel:_currentSheet];
             break;
