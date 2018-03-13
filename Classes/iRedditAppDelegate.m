@@ -55,7 +55,7 @@ iRedditAppDelegate *sharedAppDelegate;
       [NSArray array], redditSortOrderKey,
       redditSoundLightsaber, shakingSoundKey,
       [NSNumber numberWithBool:YES], allowLandscapeOrientationKey,
-      @"/", initialRedditURLKey,
+      @"/hot", initialRedditURLKey,
       @"Front Page", initialRedditTitleKey,
       nil
       ]
