@@ -256,8 +256,10 @@
 
 -(void)loading {
     [self createModel];
-    [_tableView reloadData];
-    [_loadingView setHidden:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_tableView reloadData];
+        [_loadingView setHidden:YES];
+    });
 }
 
 - (void)createModel
@@ -311,12 +313,16 @@
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
 -(void)loadMore {
     [_dataSource loadMore:YES];
     _gettingMore = NO;
-    [_updatingView setHidden:YES];
-    [_tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_updatingView setHidden:YES];
+        [_tableView reloadData];
+    });
 }
+
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     if([self isMovingFromParentViewController]) {

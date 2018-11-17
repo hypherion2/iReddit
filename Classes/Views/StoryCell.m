@@ -216,6 +216,9 @@
     temp = [NSTemporaryDirectory() stringByAppendingString:temp];
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:story.thumbnailURL]];
     [data writeToFile:temp atomically:YES];
-    [storyImage setImage:[UIImage imageWithContentsOfFile:temp]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [storyImage setImage:[UIImage imageWithContentsOfFile:temp]];
+    });
+    
 }
 @end

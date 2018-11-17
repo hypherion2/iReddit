@@ -118,8 +118,12 @@
                 [cell setAccessoryView:textField];
             } else {
                 UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                button.frame = CGRectMake(-10, 0, 50, 30);
-                [button setTitle:@"Login"  forState:UIControlStateNormal];
+                button.frame = CGRectMake(-10, 0, 80, 30);
+                if ([[LoginController sharedLoginController] isLoggedIn]) {
+                    [button setTitle:@"Logged in"  forState:UIControlStateNormal];
+                } else {
+                    [button setTitle:@"Login"  forState:UIControlStateNormal];
+                }
                 [button setTitle:@"Login?" forState:UIControlStateDisabled];
                 //[button setEnabled:NO];
                 [button addTarget:self action:@selector(loginButton) forControlEvents:UIControlEventTouchUpInside];
@@ -293,12 +297,18 @@
     [[[[self tableView] cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] accessoryView] resignFirstResponder];
     [[[[self tableView] cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]] accessoryView] resignFirstResponder];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLoginButton:) name:RedditDidFinishLoggingInNotification object:nil];
     if (changed) {
         //NSLog(@"login");
         [[LoginController sharedLoginController] logOut];
         [[LoginController sharedLoginController] loginWithUsername:[defaults stringForKey:redditUsernameKey] password:[defaults stringForKey:redditPasswordKey]];
     }
 }
+
+- (void)updateLoginButton {
+    [[self tableView] reloadData];
+}
+
 - (void)viewWillDisappear:(BOOL)animated{
     [[[[self tableView] cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] accessoryView] resignFirstResponder];
     [[[[self tableView] cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]] accessoryView] resignFirstResponder];

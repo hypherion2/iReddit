@@ -20,7 +20,7 @@ NSString *const RedditMessagesAPIString		  = @"/message/inbox.json";
 NSString *const RedditComposeMessageAPIString = @"/api/compose";
 NSString *const RedditSubscribeAPIString	  = @"/api/subscribe";
  
-NSString *const SubRedditNewsModeHot			= @"";
+NSString *const SubRedditNewsModeHot			= @"hot/";
 NSString *const SubRedditNewsModeNew			= @"new/";
 NSString *const SubRedditNewsModeTop			= @"top/";
 NSString *const SubRedditNewsModeControversial	= @"controversial/";
