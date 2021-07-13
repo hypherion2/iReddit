@@ -16,7 +16,6 @@
 #import "SubredditData.h"
 #import "SubredditViewController.h"
 #import "RedditWebView.h"
-#import "PocketAPI.h"
 
 @interface StoryViewController () {
     BOOL		isForComments;
@@ -388,45 +387,11 @@
 		_currentSheet = nil;
 	} else {
         NSMutableArray *otherButtonTitles;
-        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"usePocket"] boolValue]) {
-            if (![[PocketAPI sharedAPI] isLoggedIn]) {
-                [[PocketAPI sharedAPI] loginWithHandler: ^(PocketAPI *API, NSError *error){
-                    if (error != nil)
-                    {
-                        // There was an error when authorizing the user.
-                        // The most common error is that the user denied access to your application.
-                        // The error object will contain a human readable error message that you
-                        // should display to the user. Ex: Show an UIAlertView with the message
-                        // from error.localizedDescription
-                        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:usePocket];
-                        [[NSUserDefaults standardUserDefaults] synchronize];
-                        NSLog(@"%@",error.localizedDescription);
-                        GIDAAlertView *gav = [[GIDAAlertView alloc] initWithXMarkWith:@"Could not log in to Pocket"];
-                        [gav setColor:[iRedditAppDelegate redditNavigationBarTintColor]];
-                        [gav presentAlertFor:1.08];
-                        
-                    }
-                    else
-                    {
-                        // The user logged in successfully, your app can now make requests.
-                        // [API username] will return the logged-in user’s username
-                        // and API.loggedIn will == YES
-                        
-                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:usePocket];
-                        [[NSUserDefaults standardUserDefaults] synchronize];
-                        GIDAAlertView *gav = [[GIDAAlertView alloc] initWithCheckMarkAndMessage:@"Logged in to Pocket"];
-                        [gav setColor:[iRedditAppDelegate redditNavigationBarTintColor]];
-                        [gav presentAlertFor:1.08];
-                    }
-                }];
-            }
-            otherButtonTitles = [NSMutableArray arrayWithObjects:@"E-mail Link", @"Open Link in browser", @"Hide on reddit", @"Save on reddit", @"Save on Pocket", nil];
-            actionSheetItemIndexPocket = 4;
-		} else {
+        
             otherButtonTitles = [NSMutableArray arrayWithObjects:@"E-mail Link", @"Open Link in browser", @"Hide on reddit", @"Save on reddit", nil];
             actionSheetItemIndexPocket = -1;
             
-        }
+
         
         _currentSheet = [[UIActionSheet alloc]
                          initWithTitle:@""
@@ -638,30 +603,7 @@ static NSString * encodeByAddingPercentEscapes(NSString *input) {
     
 }
 - (void)saveOnPocket:(id)sender {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:@"usePocket"]) {
-        if ([PocketAPI sharedAPI].isLoggedIn) {
-            NSString *stringURL = self.webview.request.URL.absoluteString;
-            if (isForComments && story.commentsURL)
-                stringURL = story.commentsURL;
-            NSURL *url = [NSURL URLWithString:stringURL];
-            [[PocketAPI sharedAPI] saveURL:url handler: ^(PocketAPI *API, NSURL *URL,
-                                                          NSError *error){
-                if(error){
-                    // there was an issue connecting to Pocket
-                    // present some UI to notify if necessary
-                }else{
-                    
-                    GIDAAlertView *gav = [[GIDAAlertView alloc] initWithCheckMarkAndMessage:@"Saved to Pocket"];
-                    [gav setColor:[iRedditAppDelegate redditNavigationBarTintColor]];
-                    [gav presentAlertFor:1.07];
-                    // the URL was saved successfully
-                }
-            }];
-        } else {
-            
-        }
-    }
+    return;
 }
 
 - (void)saveCurrentStory:(id)sender

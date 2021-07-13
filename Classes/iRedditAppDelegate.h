@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SubredditData.h"
 #import "MessageDataSource.h"
-#import "PocketAPI.h"
 #import "RootViewController.h"
 #import "SubredditViewController.h"
 #import "Story.h"

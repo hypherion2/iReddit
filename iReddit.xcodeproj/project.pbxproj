@@ -91,10 +91,6 @@
 		ADFB556C0FEACC5C0067CEC1 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = ADFB556B0FEACC5C0067CEC1 /* Default.png */; };
 		B97077061CE29ECD00D0EB31 /* UIButton+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = B97077051CE29ECD00D0EB31 /* UIButton+Extensions.m */; };
 		BE0910F016F7C47900EE6296 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BE0910EF16F7C47900EE6296 /* Default-568h@2x.png */; };
-		BE27743716F7CF59009D445C /* PocketAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = BE27741916F7CF59009D445C /* PocketAPI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		BE27743816F7CF59009D445C /* PocketAPILogin.m in Sources */ = {isa = PBXBuildFile; fileRef = BE27741B16F7CF59009D445C /* PocketAPILogin.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		BE27743916F7CF59009D445C /* PocketAPIOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BE27741D16F7CF59009D445C /* PocketAPIOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		BE27743A16F7CF59009D445C /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BE27742016F7CF59009D445C /* SFHFKeychainUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BE27744316F7CF99009D445C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE27744216F7CF99009D445C /* Security.framework */; };
 		BE66E4C418E9BAD00055DB9E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE66E4C318E9BAD00055DB9E /* Images.xcassets */; };
 		BE7DBCDF170455FA0012B6D1 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE7DBCDE170455FA0012B6D1 /* ImageIO.framework */; };
@@ -215,16 +211,6 @@
 		B97077041CE29EA000D0EB31 /* UIButton+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+Extensions.h"; path = "Extensions/UIButton+Extensions.h"; sourceTree = "<group>"; };
 		B97077051CE29ECD00D0EB31 /* UIButton+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIButton+Extensions.m"; path = "Extensions/UIButton+Extensions.m"; sourceTree = "<group>"; };
 		BE0910EF16F7C47900EE6296 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		BE27741716F7CF59009D445C /* PocketAPI+NSOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PocketAPI+NSOperation.h"; sourceTree = "<group>"; };
-		BE27741816F7CF59009D445C /* PocketAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketAPI.h; sourceTree = "<group>"; };
-		BE27741916F7CF59009D445C /* PocketAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PocketAPI.m; sourceTree = "<group>"; };
-		BE27741A16F7CF59009D445C /* PocketAPILogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketAPILogin.h; sourceTree = "<group>"; };
-		BE27741B16F7CF59009D445C /* PocketAPILogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PocketAPILogin.m; sourceTree = "<group>"; };
-		BE27741C16F7CF59009D445C /* PocketAPIOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketAPIOperation.h; sourceTree = "<group>"; };
-		BE27741D16F7CF59009D445C /* PocketAPIOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PocketAPIOperation.m; sourceTree = "<group>"; };
-		BE27741E16F7CF59009D445C /* PocketAPITypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketAPITypes.h; sourceTree = "<group>"; };
-		BE27741F16F7CF59009D445C /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
-		BE27742016F7CF59009D445C /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
 		BE27744216F7CF99009D445C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BE66E4BE18E9B8E40055DB9E /* Icon~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon~iphone.png"; sourceTree = "<group>"; };
 		BE66E4BF18E9B95E0055DB9E /* Icon~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon~ipad.png"; sourceTree = "<group>"; };
@@ -283,7 +269,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				BE2773E516F7CF59009D445C /* Pocket-ObjC-SDK */,
 				BE0910EF16F7C47900EE6296 /* Default-568h@2x.png */,
 				ADFB53350FEAC3EA0067CEC1 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -512,32 +497,6 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
-		BE2773E516F7CF59009D445C /* Pocket-ObjC-SDK */ = {
-			isa = PBXGroup;
-			children = (
-				BE27741616F7CF59009D445C /* SDK */,
-			);
-			name = "Pocket-ObjC-SDK";
-			path = Externals/Pocket;
-			sourceTree = SOURCE_ROOT;
-		};
-		BE27741616F7CF59009D445C /* SDK */ = {
-			isa = PBXGroup;
-			children = (
-				BE27741716F7CF59009D445C /* PocketAPI+NSOperation.h */,
-				BE27741816F7CF59009D445C /* PocketAPI.h */,
-				BE27741916F7CF59009D445C /* PocketAPI.m */,
-				BE27741A16F7CF59009D445C /* PocketAPILogin.h */,
-				BE27741B16F7CF59009D445C /* PocketAPILogin.m */,
-				BE27741C16F7CF59009D445C /* PocketAPIOperation.h */,
-				BE27741D16F7CF59009D445C /* PocketAPIOperation.m */,
-				BE27741E16F7CF59009D445C /* PocketAPITypes.h */,
-				BE27741F16F7CF59009D445C /* SFHFKeychainUtils.h */,
-				BE27742016F7CF59009D445C /* SFHFKeychainUtils.m */,
-			);
-			path = SDK;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -567,7 +526,8 @@
 				LastUpgradeCheck = 0730;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 5AD8LN63U7;
+						DevelopmentTeam = MJ6SHRS9XN;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -685,10 +645,6 @@
 				ADBC92060FFDA1DE0033E60A /* AddRedditViewController.m in Sources */,
 				E58C100E12B49244004D2070 /* SubredditData.m in Sources */,
 				E58C109812B4A0DD004D2070 /* RedditWindow.m in Sources */,
-				BE27743716F7CF59009D445C /* PocketAPI.m in Sources */,
-				BE27743816F7CF59009D445C /* PocketAPILogin.m in Sources */,
-				BE27743916F7CF59009D445C /* PocketAPIOperation.m in Sources */,
-				BE27743A16F7CF59009D445C /* SFHFKeychainUtils.m in Sources */,
 				BECC89F416F864E200CF00A4 /* GIDAAlertView.m in Sources */,
 				BEC679C71705E0F300B4E82E /* CreateMessage.m in Sources */,
 			);
@@ -704,9 +660,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = MJ6SHRS9XN;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/ReactiveCocoa/ReactiveCocoaFramework";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -721,9 +679,10 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.paredesalva.ireddit2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paredesalva.ireddit3;
 				PRODUCT_NAME = iReddit;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -737,9 +696,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = MJ6SHRS9XN;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/ReactiveCocoa/ReactiveCocoaFramework";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iReddit_Prefix.pch;
@@ -752,9 +713,10 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.paredesalva.ireddit2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paredesalva.ireddit3;
 				PRODUCT_NAME = iReddit;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -789,9 +751,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = MJ6SHRS9XN;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/ReactiveCocoa/ReactiveCocoaFramework";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iReddit_Prefix.pch;
@@ -804,10 +768,11 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.paredesalva.ireddit2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paredesalva.ireddit3;
 				PRODUCT_NAME = iReddit;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";

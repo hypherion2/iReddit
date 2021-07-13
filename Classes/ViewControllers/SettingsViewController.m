@@ -11,7 +11,7 @@
 #import "LoginController.h"
 #import "Constants.h"
 #import "GIDAAlertView.h"
-#import <ReactiveCocoa/ReactiveCocoa.h>
+//#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface TextField : UITextField
 @property (strong, nonatomic) NSIndexPath *indexPath;
@@ -166,45 +166,7 @@
 -(void)valueChange:(id)sender {
     Switch *switchValue = (Switch *)sender;
     NSString *dataKey = [switchValue dataKey];
-    if ([dataKey isEqualToString:usePocket]) {
-        if ([sender isOn] && ![[PocketAPI sharedAPI] isLoggedIn]) {
-            [[PocketAPI sharedAPI] loginWithHandler: ^(PocketAPI *API, NSError *error){
-                if (error != nil)
-                {
-                    // There was an error when authorizing the user.
-                    // The most common error is that the user denied access to your application.
-                    // The error object will contain a human readable error message that you
-                    // should display to the user. Ex: Show an UIAlertView with the message
-                    // from error.localizedDescription
-                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:usePocket];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                    NSLog(@"%@",error.localizedDescription);
-                    GIDAAlertView *gav = [[GIDAAlertView alloc] initWithXMarkWith:@"Could not log in to Pocket"];
-                    [gav setColor:[iRedditAppDelegate redditNavigationBarTintColor]];
-                    [gav presentAlertFor:1.08];
-                } else {
-                    // The user logged in successfully, your app can now make requests.
-                    // [API username] will return the logged-in user’s username
-                    // and API.loggedIn will == YES
-                    
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:usePocket];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                    GIDAAlertView *gav = [[GIDAAlertView alloc] initWithCheckMarkAndMessage:@"Logged in to Pocket"];
-                    [gav setColor:[iRedditAppDelegate redditNavigationBarTintColor]];
-                    [gav presentAlertFor:1.08];
-                }
-            }];
-        }
-        if (![sender isOn] && [[PocketAPI sharedAPI] isLoggedIn]) {
-            [[PocketAPI sharedAPI] logout];
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:dataKey];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-        if ([sender isOn] && [[PocketAPI sharedAPI] isLoggedIn]) {
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:usePocket];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-    } else {
+    
         if ([dataKey isEqualToString:@"useChrome"]) {
             if ([sender isOn] && ![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome://"]]) {
                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:dataKey];
@@ -217,7 +179,7 @@
             [[NSUserDefaults standardUserDefaults] setBool:[sender isOn] forKey:dataKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
-    }
+    
     
     [self createModel];
     //[self.tableView reloadData];
